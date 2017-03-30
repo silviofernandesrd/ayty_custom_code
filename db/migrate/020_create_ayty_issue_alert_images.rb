@@ -1,6 +1,4 @@
-##### AYTYCRM - Silvio Fernandes #####
 class CreateAytyIssueAlertImages < ActiveRecord::Migration
-
   def self.up
     create_table :ayty_issue_alert_images do |t|
       t.column :name, :string
@@ -12,10 +10,7 @@ class CreateAytyIssueAlertImages < ActiveRecord::Migration
       t.column :condition_expected_value, :string
       t.column :priority_show, :integer
       t.column :active, :boolean
-
-      #t.timestamps
     end
-
   end
 
   def self.down

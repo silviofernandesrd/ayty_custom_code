@@ -1,6 +1,4 @@
-##### AYTYCRM - Silvio Fernandes #####
 class AddIssuesAytyColumns < ActiveRecord::Migration
-
   def self.up
     add_column :issues, :qt_reproof_internal, :integer
     add_column :issues, :qt_reproof_external, :integer
@@ -68,5 +66,4 @@ class AddIssuesAytyColumns < ActiveRecord::Migration
     remove_column :issues, :was_aneg_delivery_delayed
     remove_column :issues, :was_delivery_delayed_client_after_disapproved
   end
-
 end

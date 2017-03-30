@@ -1,6 +1,4 @@
-##### AYTYCRM - Silvio Fernandes #####
 class AddAssignedToVersions < ActiveRecord::Migration
-
   def self.up
     add_reference :versions, :assigned_to, references: :users, index: true
   end
@@ -10,5 +8,4 @@ class AddAssignedToVersions < ActiveRecord::Migration
       t.remove :assigned_to_id
     end
   end
-
 end

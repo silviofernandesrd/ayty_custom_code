@@ -1,14 +1,9 @@
-##### AYTYCRM - Silvio Fernandes #####
 class CreateAytyLastnames < ActiveRecord::Migration
-
   def self.up
     create_table :ayty_lastnames do |t|
       t.column :lastname, :string
-      t.column :active, :boolean, :default => true
-
-      #t.timestamps
+      t.column :active, :boolean, default: true
     end
-
   end
 
   def self.down

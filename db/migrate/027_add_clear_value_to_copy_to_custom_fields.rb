@@ -1,6 +1,4 @@
-##### AYTYCRM - Silvio Fernandes #####
 class AddClearValueToCopyToCustomFields < ActiveRecord::Migration
-
   def self.up
     change_table(:custom_fields) do |t|
       t.boolean :clear_value_to_copy, default: false
@@ -12,5 +10,4 @@ class AddClearValueToCopyToCustomFields < ActiveRecord::Migration
       t.remove :clear_value_to_copy
     end
   end
-
 end
