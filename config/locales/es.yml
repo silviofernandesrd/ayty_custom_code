@@ -1,0 +1,177 @@
+##### AYTYCRM - Silvio Fernandes #####
+es:
+
+  # Internacionalização para niveis de acesso
+  label_ayty_access_levels_plural: Ayty - Niveles de Acceso
+  label_ayty_access_level_new: Nuevo Nivel de Acceso
+  label_ayty_access_level: Nivel de Acceso
+  field_level: Nivel
+  field_ayty_access_level: Nivel de Acceso
+  field_ayty_access: Acceso Ayty
+  field_is_block_edit_custom_field: Bloqueado edición de campo personalizado
+  label_is_block_edit_custom_field: Bloqueado para la edición
+
+
+  field_date_changed_priority: Cambio de fecha de prioridad
+  field_user_changed_priority: Responsable de Prioridad
+  field_assigned_to_bd: Responsable BD
+  field_assigned_to_net: Responsable .NET
+  field_assigned_to_test: Responsable Teste
+  field_assigned_to_aneg: Responsable Aneg
+  field_assigned_to_areq: Responsable Areq
+  field_assigned_to_inf: Responsable Infra
+
+  label_list_users_ayty: Usuários Ayty
+
+  label_list_change_issue_priority: Lista/Alterar prioridade dos Tickets
+
+  label_ayty_issue_priorities_ticket: Ticket
+  label_ayty_issue_priorities_priority: Pri
+  label_ayty_issue_priorities_remainder_time_sis: Rest SIS
+  label_ayty_issue_priorities_remainder_time_bd: Rest BD
+  label_ayty_issue_priorities_remainder_time_sis_colab: Rest SIS Colab
+  label_ayty_issue_priorities_remainder_time_inf: Rest Infra
+  label_ayty_issue_priorities_release_geral_int: Release Geral - Interno
+  label_ayty_issue_priorities_release_colab_int: Release Colab - Interno
+  label_ayty_issue_priorities_responsible_sis: Resp SIS
+  label_ayty_issue_priorities_responsible_bd: Resp BD
+  label_ayty_issue_priorities_responsible_test: Resp Teste
+  label_ayty_issue_priorities_responsible_areq: Resp Areq
+  label_ayty_issue_priorities_estimated_sis: Est SIS
+  label_ayty_issue_priorities_estimated_bd: Est BD
+  label_ayty_issue_priorities_estimated_sis_colab: Est SIS Colab
+  label_ayty_issue_priorities_estimated_inf: Est Infra
+  label_ayty_issue_priorities_estimated_test: Est Teste
+
+  label_spent_time_pending: Tpo Pend
+  label_spent_time_by_user: Tpo gto Usu
+  field_user_changed_priority: Responsável pela Prioridade
+
+  label_ayty_list_issues_responsible: Lista dos Tickets como Responsável
+  label_ayty_show_issues_responsible: Mostrar Tickets como Responsável
+
+  label_ayty_time_tracker_pending: Apontamentos Pendentes Ayty
+  label_ayty_show_time_tracker_pendings: Mostrar Apontamentos Pendentes Ayty
+
+  label_ayty_list_issue_play: Ticket com Play
+  label_ayty_show_issue_play: Mostrar Ticket com Play
+
+  label_ayty_list_issues_watcher: Lista dos Tickets como Observador
+  label_ayty_show_issues_watchers: Mostrar Tickets Observados
+
+  label_ayty_outdated_content:  (conteúdo desatualizado)
+
+  label_ayty_issue_priorities_save_success: Prioridades salvas com sucesso!
+
+  label_ayty_roles_plural: Áreas da Ayty
+  label_ayty_role_new: Nova Área da Ayty
+  label_ayty_role: Área da Ayty
+  field_ayty_role: Área da Ayty
+  field_ayty_role_group_name: Código da Area
+  field_ayty_role_allowed_view_dashboard: Dashboard
+  field_ayty_role_allowed_send_mail_time_entries: Email de Apontamentos
+  field_ayty_role_allowed_save_baseline: Permitir Salvar Baseline
+  field_ayty_role_allowed_view_baseline: Permitir Visualizar Baseline
+  field_ayty_role_allowed_issues_highlights: Permitir Destacar Tickets
+  field_ayty_role_allowed_to_monitor_production: Permitir Monitorar Produção
+
+  label_ayty_managed_roles_plural: Ayty - Relacionamento entre Papéis
+  label_ayty_managed_role: Relacionamento com
+  label_ayty_managed_all_roles: Todos Papéis
+  label_ayty_managed_selected_roles_only: Somente estes Papéis
+
+  label_author: Autor
+
+  label_ayty_manager_users_plural: Ayty - Permissão p/ salvar Prioridade
+  label_new_ayty_manager_users: Nova Permissão para
+  label_new_ayty_managed_users: Nova Permissão em
+  label_ayty_manager_users_view_manager: Permissão p/ salvar Prioridade (visão Responsáveis Prioridades)
+  label_ayty_manager_users_view_managed: Permissão p/ salvar Prioridade (visão Usuários que Poderão Alterar Prioridade do Usuário Selecionado)
+  label_ayty_change_view: Mudar visão
+
+  ayty_notice_unsuccessful_update: Problema na atualização
+
+  label_ayty_time_entry_types_plural: Ayty - Tipos de Apontamentos
+  label_ayty_time_entry_type_new: Novo tipo de apontamento
+  label_ayty_time_entry_type: Tipo de apontamento
+  field_code: Código
+  field_ayty_time_entry_type: Tipo de apontamento
+
+  field_ayty_template_notes: Ayty Templates
+
+  field_due_date: Data Acordada
+
+  field_fixed_version: Release
+  field_version: Release
+  label_version: Release
+  label_version_new: Nova Release
+  label_version_plural: Releases
+  label_current_version: Release atual
+  label_show_completed_versions: Exibir releases completas
+  field_finish_date: Fim
+  text_are_you_sure_time_tracker: Você tem certeza que deseja parar este Ticket e apontar as horas?
+  notice_unable_delete_version: Não foi possível excluir a release
+  permission_manage_versions: Gerenciar releases
+  label_updated_time_by: "Atualizado por %{author} em %{age}"
+  label_close_versions: Fechar releases concluídas
+  label_saving: Salvando...
+
+  field_client: Apontamento cliente
+
+  field_days_to_block_retroactive_time_entry: Bloqueio de Apontamentos retroativos (dias)
+  field_block_retroactive_time_entry: Não é permitido apontamentos com mais de
+  field_has_view_time_tracker: Visão dos Apontamentos
+  field_maximum_hours_allowed_to_time_entry_per_day: Máximo de Apontamentos no mesmo dia (horas)
+  field_maximum_time_entry_per_day: Não é permitido apontar mais de
+  label_hours_in_same_day: "%{hours} hora(s) no mesmo dia"
+  field_is_business_partner: Sócio
+  field_productive_hours: Padrão
+  field_days_of_vacation: Dias de Férias
+  field_code_user: Matrícula
+  field_date_admission: Data de Admissão
+  field_function_name: Função
+
+  field_ayty_toggle_journal_history: Ocultar/Mostrar históricos sem comentário
+
+  field_ayty_deny_edit: Bloquear edição de Campo Personalizado
+  label_ayty_deny_edit: Bloqueado para edição
+  field_ayty_show_last_update: Mostrar data da ultima atualização
+
+  field_ayty_default: Situação padrão
+  field_ayty_hours_provided: Máximo Horas Alocadas
+  field_ayty_client_view_hours_provided: Permitir Cliente Visualizar Horas Alocadas
+
+  label_timelog: Texto / Hora (Apontamento)
+  label_ayty_errors_messages_timelog: "O valor informado não é um tempo válido. Ex.: 1h30m ou 1.5"
+
+  field_cf_solution_type: Tipo de Solução
+  field_cf_quality_ticket_to_reach_areq: Quality Tkt ao chegar pro AREQ
+  field_cf_status_post_delivery: Status pós-Entrega
+  field_cf_remainder_time_bd: Tempo Restante BD
+  field_cf_remainder_time_sys: Tempo Restante SIS
+  field_cf_remainder_time_inf: Tempo Restante Infra
+  field_cf_law_of_good: Lei do Bem
+
+  field_ayty_assignable_responsible: Usuários Responsáveis em Atribuido Para
+  label_ayty_assignable_responsible_short: Usu. Resp. Associável
+
+  notice_ayty_remember_fill_rest_bd: "Não esqueça de atualizar o Tempo Restante BD. Tempo restante – estimado = %{hours} hora(s)"
+  notice_ayty_remember_fill_rest_sys: "Não esqueça de atualizar o Tempo Restante SIS. Tempo restante – estimado = %{hours} hora(s)"
+
+  label_ayty_replicate_memberships: Copiar Permissões
+
+  label_ayty_dashboard_plural: Dashboards
+  label_ayty_title_dashboard: AytyDashboard
+  label_ayty_dashboard_add_new_user: Usuários não adicionados
+  label_ayty_dashboard_popup: PopUp
+
+  field_ayty_collaborative: Colab?
+  field_can_create_ayty_dashboard: Pode criar dashboard?
+  field_can_update_ayty_dashboard: Pode atualizar dashboard?
+  field_can_delete_ayty_dashboard: Pode apagar dashboard?
+  text_has_permission_create_ayty_dashboard: Você não possui permissão para criar dashboards
+  text_has_permission_update_ayty_dashboard: Você não possui permissão para atualizar dashboard
+  text_has_permission_delete_ayty_dashboard: Você não possui permissão para apagar dashboard
+  text_name_of_ayty_dashboard_required: Favor informar um nome para o Dashboard
+
+  field_clear_value_to_copy: Limpar valor ao copiar?

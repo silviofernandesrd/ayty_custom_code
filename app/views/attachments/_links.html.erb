@@ -1,0 +1,52 @@
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+-->
+<div class="attachments">
+<div class="contextual">
+  <%= link_to image_tag('edit.png'),
+        container_attachments_edit_path(container),
+        :title => l(:label_edit_attachments) if options[:editable] %>
+</div>
+<% for attachment in attachments %>
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    # Verifica se o usuario não tiver acesso aos anexos não exibe
+    -->
+    <% if ayty_user_can_view_content?(User.current, attachment.ayty_access_level) %>
+        <p><%= link_to_attachment attachment, :class => 'icon icon-attachment', :download => true -%>
+          <% if attachment.is_text? %>
+            <%= link_to image_tag('magnifier.png'),
+                        :controller => 'attachments', :action => 'show',
+                        :id => attachment, :filename => attachment.filename %>
+          <% end %>
+          <%= " - #{attachment.description}" unless attachment.description.blank? %>
+          <span class="size">(<%= number_to_human_size attachment.filesize %>)</span>
+          <% if options[:deletable] %>
+            <%= link_to image_tag('delete.png'), attachment_path(attachment),
+                                                 :data => {:confirm => l(:text_are_you_sure)},
+                                                 :method => :delete,
+                                                 :class => 'delete',
+                                                 :title => l(:button_delete) %>
+          <% end %>
+          <% if options[:author] %>
+            <span class="author"><%= attachment.author %>, <%= format_time(attachment.created_on) %></span>
+          <% end %>
+          <!--
+          ##### AYTYCRM - Silvio Fernandes #####
+          # Mostra o nivel de acesso caso não seja a visão do cliente.
+          -->
+          <%= ayty_get_access_level_name(User.current, attachment.ayty_access_level) %>
+          </p>
+    <% end %>
+<% end %>
+<% if defined?(thumbnails) && thumbnails %>
+  <% images = attachments.select(&:thumbnailable?) %>
+  <% if images.any? %>
+  <div class="thumbnails">
+    <% images.each do |attachment| %>
+      <div><%= thumbnail_tag(attachment) %></div>
+    <% end %>
+  </div>
+  <% end %>
+<% end %>
+</div>

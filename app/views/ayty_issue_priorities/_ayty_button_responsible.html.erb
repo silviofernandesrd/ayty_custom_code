@@ -1,0 +1,9 @@
+<%= check_box_tag "ayty_show_issues_responsible", "", checked, :data => { :remote => true,
+                                                                          :url => url_for( :action => :ayty_render_responsible,
+                                                                                           :user_id => user_id,
+                                                                                           :ayty_issue_id_play => ayty_issue_id_play,
+                                                                                           :load_list_responsible => load_list_responsible,
+                                                                                           :ayty_exclude_id_issue_priority => ayty_exclude_id_issue_priority,
+                                                                                           :ayty_exclude_id_issue_watcher => ayty_exclude_id_issue_watcher ) }  %>
+
+<%= l(:label_ayty_show_issues_responsible) %>

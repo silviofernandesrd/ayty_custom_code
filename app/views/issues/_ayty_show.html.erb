@@ -1,0 +1,16 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<% if User.current.ayty_is_user_ayty? %>
+<table class="attributes">
+<%= issue_fields_rows do |rows|
+
+  rows.left l(:field_assigned_to_bd), avatar(issue.assigned_to_bd, :size => "14").to_s.html_safe + (issue.assigned_to_bd ? link_to_user(issue.assigned_to_bd) : "-"), :class => 'assigned-to'
+  rows.left l(:field_assigned_to_net), avatar(issue.assigned_to_net, :size => "14").to_s.html_safe + (issue.assigned_to_net ? link_to_user(issue.assigned_to_net) : "-"), :class => 'assigned-to'
+  rows.left l(:field_assigned_to_test), avatar(issue.assigned_to_test, :size => "14").to_s.html_safe + (issue.assigned_to_test ? link_to_user(issue.assigned_to_test) : "-"), :class => 'assigned-to'
+
+  rows.right l(:field_assigned_to_aneg), avatar(issue.assigned_to_aneg, :size => "14").to_s.html_safe + (issue.assigned_to_aneg ? link_to_user(issue.assigned_to_aneg) : "-"), :class => 'assigned-to'
+  rows.right l(:field_assigned_to_areq), avatar(issue.assigned_to_areq, :size => "14").to_s.html_safe + (issue.assigned_to_areq ? link_to_user(issue.assigned_to_areq) : "-"), :class => 'assigned-to'
+  rows.right l(:field_assigned_to_inf), avatar(issue.assigned_to_inf, :size => "14").to_s.html_safe + (issue.assigned_to_inf ? link_to_user(issue.assigned_to_inf) : "-"), :class => 'assigned-to'
+
+end %>
+</table>
+<% end %>

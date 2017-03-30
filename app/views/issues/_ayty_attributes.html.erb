@@ -1,0 +1,38 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<% if User.current.ayty_is_user_ayty? %>
+<div id="attributes" class="attributes">
+    <div class="splitcontent">
+        <div class="splitcontentleft">
+
+            <% if issue.safe_attribute? 'assigned_to_bd_id' %>
+                <p><%= form.select :assigned_to_bd_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_bd, issue), :include_blank => true %></p>
+            <% end %>
+
+            <% if issue.safe_attribute? 'assigned_to_net_id' %>
+                <p><%= form.select :assigned_to_net_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_net, issue), :include_blank => true %></p>
+            <% end %>
+
+            <% if issue.safe_attribute? 'assigned_to_test_id' %>
+                <p><%= form.select :assigned_to_test_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_test, issue), :include_blank => true %></p>
+            <% end %>
+
+        </div>
+
+        <div class="splitcontentright">
+
+            <% if issue.safe_attribute? 'assigned_to_aneg_id' %>
+                <p><%= form.select :assigned_to_aneg_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_aneg, issue), :include_blank => true %></p>
+            <% end %>
+
+            <% if issue.safe_attribute? 'assigned_to_areq_id' %>
+                <p><%= form.select :assigned_to_areq_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_areq, issue), :include_blank => true %></p>
+            <% end %>
+
+            <% if issue.safe_attribute? 'assigned_to_inf_id' %>
+                <p><%= form.select :assigned_to_inf_id, ayty_principals_options_for_select(issue.ayty_assignable_users(true), issue.assigned_to_inf, issue), :include_blank => true %></p>
+            <% end %>
+
+        </div>
+    </div>
+</div>
+<% end %>

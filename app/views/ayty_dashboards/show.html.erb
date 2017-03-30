@@ -1,0 +1,4 @@
+<% unless @popup.present? %>
+    <%= render :partial => 'ayty_dashboards/list_ayty_users', :locals => {:users => @users, :ayty_dashboard => @ayty_dashboard} %>
+<% end %>
+<%= render :partial => 'ayty_dashboards/list_blocks', :locals => {:ayty_dashboards_users => @ayty_dashboards_users, :ayty_dashboard => @ayty_dashboard, :popup => @popup} %>                    `

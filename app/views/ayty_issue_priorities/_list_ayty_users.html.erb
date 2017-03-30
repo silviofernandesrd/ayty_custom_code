@@ -1,0 +1,11 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<div id='list_users_ayty'>
+    <%= render_list_ayty_user_as_link_to_issue_priority %>
+</div>
+
+<!-- move a lista acima para ao lado do link de usuarios ayty -->
+<%= javascript_tag do %>
+    $(function ($) {
+        $("#list_users_ayty").appendTo($(".ayty-issue-priorities").parent());
+    });
+<% end %>

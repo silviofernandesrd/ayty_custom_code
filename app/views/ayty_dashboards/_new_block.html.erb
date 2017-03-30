@@ -1,0 +1,79 @@
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Ayty Dashboard
+-->
+<div id="ayty_new_block_<%= user.id %>" data-user_id="<%= user.id %>" class="ayty-new-block">
+    <ul class="ayty-header-title" title="<%= l_hours(issue_play.hours_spent) if issue_play %>">
+        <li><%= link_to(user.name, {:controller => :ayty_issue_priorities, :id => user.id}) %></li>
+        <% if User.current.can_update_ayty_dashboard? %>
+            <%= form_for ayty_dashboard, :remote => true, :method => :delete do |f| %>
+                <%= f.hidden_field :user_id, :value => user.id %>
+                <%= image_submit_tag "close_hl.png", :class => "ayty-close-block", :name => "del", :value => "block" unless popup.present? %>
+            <% end %>
+        <% end %>
+    </ul>
+  <% if issues %>
+    <ul class="ayty-header">
+        <li class="ayty-issue-alert-image">&nbsp;</li>
+        <li class="ayty-header-id">#</li>
+        <li class="ayty-header-status"><%= l(:field_status) %></li>
+        <li class="ayty-header-project"><%= l(:field_project) %></li>
+        <li class="ayty-header-subject"><%= l(:field_subject) %></li>
+        <% unless user.ayty_collaborative? %>
+            <li class="ayty-header-rest-sys">ResSIS</li>
+        <% else %>
+            <li class="ayty-header-rest-colab">ResColab</li>
+        <% end %>
+        <li class="ayty-header-rest-db">ResBD</li>
+        <li class="ayty-header-rest-infra">ResInfra</li>
+        <li class="ayty-header-due-date">Data Acord</li>
+    </ul>
+   <% issues.each{|i| %>
+        <% style_issue = ayty_background_issue_priority_for_style(i, issue_play.issue_id) if issue_play %>
+        <ul class="<%= cycle('odd', 'even') %>" style="<%= style_issue %>">
+          <li class="ayty-issue-alert-image"><%= ayty_get_alerts_by_issue(i) %></li>
+          <li class="ayty-header-id" title="<%= "#{l(:title_dt_queue_enter)} #{format_time(i.dt_queue_enter)}" if i.dt_queue_enter %>"><%= link_to i.id, :controller => 'issues', :action => 'show', :id => i %></li>
+          <li class="ayty-header-status" title="<%= i.status.to_s %>"><%= i.status.to_s[0..10] %></li>
+          <li class="ayty-header-project" title="<%= i.project.to_s %>"><%= i.project.to_s[0..10] %></li>
+          <li class="ayty-header-subject" title="<%= i.subject.to_s %>"><%= i.subject.to_s[0..34] %></li>
+          <%
+            unless user.ayty_collaborative?
+                rest_sys = (i.res_sis != '0') ? i.res_sis.to_f : i.est_sis.to_f
+                rest_sys_last_created_on = i.res_sis_last_created_on
+                rest_sys_last_created_on = "| #{rest_sys_last_created_on}" if rest_sys_last_created_on
+            else
+                rest_colab = (i.res_sis_colab != '0') ? i.res_sis_colab.to_f : i.est_sis_colab.to_f
+                rest_colab_last_created_on = i.res_sis_colab_last_created_on
+                rest_colab_last_created_on = "| #{rest_colab_last_created_on}" if rest_colab_last_created_on
+            end
+            rest_bd = (i.res_bd != '0') ? i.res_bd.to_f : i.est_bd.to_f
+            rest_bd_last_created_on = i.res_bd_last_created_on
+            rest_bd_last_created_on = "| #{rest_bd_last_created_on}" if rest_bd_last_created_on
+
+            rest_infra = (i.res_infra != '0') ? i.res_infra.to_f : i.est_infra.to_f
+            rest_infra_last_created_on = i.res_infra_last_created_on
+            rest_infra_last_created_on = "| #{rest_infra_last_created_on}" if rest_infra_last_created_on
+          %>
+          <% unless user.ayty_collaborative? %>
+            <li class="ayty-header-rest-sys" title="<%= "#{rest_sys} #{rest_sys_last_created_on}" %>"><%= rest_sys.to_s[0..4] %></li>
+          <% else %>
+            <li class="ayty-header-rest-colab" title="<%= "#{rest_colab} #{rest_colab_last_created_on}" %>"><%= rest_colab.to_s[0..4] %></li>
+          <% end %>
+          <li class="ayty-header-rest-db" title="<%= "#{rest_bd} #{rest_bd_last_created_on}" %>"><%= rest_bd.to_s[0..4] %></li>
+          <li class="ayty-header-rest-infra" title="<%= "#{rest_infra} #{rest_infra_last_created_on}" %>"><%= rest_infra.to_s[0..4] %></li>
+          <li class="ayty-header-due-date" style="<%= ayty_background_color_sla_for_date(i.due_date) %>" title="<%= ayty_format_title_for_versions(i.fixed_version_name, i.release_geral_int, i.release_colab_int) %>"><%= format_date(i.due_date) %></li>
+        </ul>
+   <% } %>
+    <ul class="ayty-header">
+        <li class="ayty-total-rest">&nbsp;</li>
+        <% unless user.ayty_collaborative? %>
+            <li class="ayty-header-rest-sys"><%= issues_total[:sum_time_sis] %></li>
+        <% else %>
+            <li class="ayty-header-rest-colab"><%= issues_total[:sum_time_sis_colab] %></li>
+        <% end %>
+        <li class="ayty-header-rest-db"><%= issues_total[:sum_time_bd] %></li>
+        <li class="ayty-header-rest-infra"><%= issues_total[:sum_time_infra] %></li>
+    </ul>
+  <% end %>
+</div>
+

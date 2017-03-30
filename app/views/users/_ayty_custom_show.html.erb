@@ -1,0 +1,10 @@
+<!--                                    2
+##### AYTYCRM - Silvio Fernandes #####
+-->
+<%= javascript_tag do %>
+    $(function ($) {
+
+        $('.contextual').prepend('<%= escape_javascript(link_to(l(:label_list_change_issue_priority), {:controller => :ayty_issue_priorities, :id => user.id}, :class => 'icon icon-edit')).html_safe if User.current.logged? && User.current.ayty_is_user_ayty? %>');
+
+    });
+<% end %>

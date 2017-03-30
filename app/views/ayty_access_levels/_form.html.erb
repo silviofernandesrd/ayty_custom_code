@@ -1,0 +1,25 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<%= error_messages_for 'ayty_access_level' %>
+<div class="box">
+  <div class="tabular">
+    <%= form_for(ayty_access_level) do |f| %>
+
+    <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.label :level %>
+      <%= f.text_field :level %>
+    </p>
+
+    <p>
+      <%= f.label :ayty_access %>
+      <%= f.check_box :ayty_access %>
+    </p>
+
+    <%= f.submit l(:button_save) %>
+    <% end %>
+  </div>
+</div>

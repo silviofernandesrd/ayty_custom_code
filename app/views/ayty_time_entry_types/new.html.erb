@@ -1,0 +1,7 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<%= title [l(:label_ayty_time_entry_types_plural), ayty_time_entry_types_path], l(:label_ayty_time_entry_type_new) %>
+
+<%= labelled_form_for @ayty_time_entry_type do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<%= submit_tag l(:button_create) %>
+<% end %>

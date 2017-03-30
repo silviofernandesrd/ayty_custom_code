@@ -1,0 +1,19 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+
+<h2><%= link_to l(:label_ayty_manager_users_view_manager), {:action => :index_manager} %></h2>
+
+<% unless @ayty_user_manager.nil? %>
+    <%= form_for @ayty_user_manager, :url => {:action => :update_manager, :id => @ayty_user_manager.id}, :html => {:method => :post, :id => 'ayty_manager_users'} do |f| %>
+        <fieldset class="box tabular"><legend><%= @ayty_user_manager.name %></legend>
+        <%= collection_check_boxes(:user, :managed_user_ids, @ayty_selectable_users, :id, :name, :checked => @ayty_selected_users.map(&:id)) do |b|
+             b.label(:class => "floating") {
+               b.check_box + b.text
+             }
+        end %>
+            <span style="width: 100%;float: left"><%= check_all_links 'ayty_manager_users' %></span>
+        </fieldset>
+        <%= submit_tag l(:button_save) %>
+    <% end %>
+<% end %>
+
+<% html_title(l(:label_ayty_manager_users_plural)) -%>

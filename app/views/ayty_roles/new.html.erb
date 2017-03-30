@@ -1,0 +1,17 @@
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Cargos da Ayty
+-->
+<h2><%= link_to l(:label_ayty_roles_plural), ayty_roles_path %> &#187; <%= l(:label_ayty_role_new) %></h2>
+
+<%= labelled_form_for :ayty_role, @ayty_role do |f| %>
+
+    <%= error_messages_for @ayty_role %>
+
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <p><%= f.submit l(:button_create) %></p>
+
+<% end %>
+
+<% html_title(l(:label_ayty_roles_plural)) -%>

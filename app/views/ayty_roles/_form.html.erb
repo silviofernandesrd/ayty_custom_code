@@ -1,0 +1,12 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<div class="box tabular">
+    <p><%= f.text_field :name, :required => true %></p>
+    <p><%= f.text_field :group_name, :label => :field_ayty_role_group_name %></p>
+    <p><%= f.check_box :active %></p>
+    <p><%= f.check_box :allowed_view_dashboard, :label => :field_ayty_role_allowed_view_dashboard %></p>
+    <p><%= f.check_box :allowed_send_mail_time_entries, :label => :field_ayty_role_allowed_send_mail_time_entries %></p>
+    <p><%= f.check_box :allowed_view_baseline, :label => :field_ayty_role_allowed_view_baseline %></p>
+    <p><%= f.check_box :allowed_save_baseline, :label => :field_ayty_role_allowed_save_baseline %></p>
+    <p><%= f.check_box :allowed_issues_highlights, :label => :field_ayty_role_allowed_issues_highlights %></p>
+    <p><%= f.check_box :allowed_to_monitor_production, :label => :field_ayty_role_allowed_to_monitor_production %></p>
+</div>

@@ -1,0 +1,77 @@
+<% unless @load_list_responsible.to_s == "true"%>
+    $('#ayty_show_issues_responsible_list').toggle()
+<% else %>
+    $('#ayty_show_issues_responsible_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_responsible",
+                                                                :locals => {:user_id => nil,
+                                                                            :ayty_issue_id_play => nil,
+                                                                            :load_list_responsible => false,
+                                                                            :checked => true,
+                                                                            :ayty_exclude_id_issue_priority => nil,
+                                                                            :ayty_exclude_id_issue_watcher => nil} %>")
+    $('#ayty_show_issues_responsible_list').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/build_tables", :locals => {:table => @table_responsible} %>")
+
+    if($('#ayty_show_issues_watcher_list').text().length > 0) {
+        $('#ayty_show_issues_watcher_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_watcher",
+                                                                :locals => {:user_id => @user_id,
+                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+                                                                            :load_list_watcher => true,
+                                                                            :checked => false,
+                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+                                                                            :ayty_outdated_content => true} %>")
+    }else{
+        $('#ayty_show_issues_watcher_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_watcher",
+                                                                :locals => {:user_id => @user_id,
+                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+                                                                            :load_list_watcher => true,
+                                                                            :checked => false,
+                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+                                                                            :ayty_outdated_content => false} %>")
+    }
+
+    if($('#ayty_show_time_tracker_pendings_list').text().length > 0) {
+        $('#ayty_show_time_tracker_pendings_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_time_tracker_pendings",
+                                                                :locals => {:user_id => @user_id,
+                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+                                                                            :load_list_time_tracker_pendings => true,
+                                                                            :checked => false,
+                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+                                                                            :ayty_exclude_id_issue_watcher => @ayty_exclude_id_issue_watcher,
+                                                                            :ayty_outdated_content => true} %>")
+    }else{
+        $('#ayty_show_time_tracker_pendings_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_time_tracker_pendings",
+                                                                :locals => {:user_id => @user_id,
+                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+                                                                            :load_list_time_tracker_pendings => true,
+                                                                            :checked => false,
+                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+                                                                            :ayty_exclude_id_issue_watcher => @ayty_exclude_id_issue_watcher,
+                                                                            :ayty_outdated_content => false} %>")
+    }
+
+//    if($('#ayty_show_issue_play_list').text().length > 0) {
+//        $('#ayty_show_issue_play_button').empty().append("<%#= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_play",
+#                                                                :locals => {:user_id => @user_id,
+#                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+#                                                                            :load_list_play => true,
+#                                                                            :checked => false,
+#                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+#                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+#                                                                            :ayty_outdated_content => true} %>")
+//    }else{
+//        $('#ayty_show_issue_play_button').empty().append("<%#= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_play",
+#                                                                :locals => {:user_id => @user_id,
+#                                                                            :ayty_issue_id_play => @ayty_issue_id_play,
+#                                                                            :load_list_play => true,
+#                                                                            :checked => false,
+#                                                                            :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+#                                                                            :ayty_exclude_id_issue_responsible => @ayty_exclude_id_issue_responsible,
+#                                                                            :ayty_outdated_content => false} %>")
+//    }
+
+
+
+<% end %>

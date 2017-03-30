@@ -1,0 +1,75 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<% if table.any? %>
+    <table
+        <% if table[:id] %>
+            id="<%= table[:id] %>"
+        <% end %>
+        <% if table[:class] %>
+            class="<%= table[:class] %>"
+        <% end %>
+    >
+    <!-- header -->
+    <% if table[:headers].any? %>
+        <tr>
+            <% for header in table[:headers] %>
+                <th><%== header[:value] %></th>
+            <% end %>
+        </tr>
+    <% end %>
+
+    <!-- columns -->
+    <% if table[:columns].any? %>
+        <tbody
+            <% if table[:tbody][:class] %>
+            class="<%= table[:tbody][:class] %>"
+            <% end %>
+        >
+        <% for column in table[:columns] %>
+            <tr
+                <% if column[:class] %>
+                class="<%= cycle('odd', 'even') %> <%= column[:class] %>"
+                <% end %>
+                <% if column[:style] %>
+                style="<%= column[:style] %>"
+                <% end %>
+            >
+                <% if column[:hidden_field] %>
+                    <%== column[:hidden_field] %>
+                <% end %>
+                <% for content in column[:contents] %>
+                    <td
+                        <% if content[:title] %>
+                            title="<%= content[:title] %>"
+                        <% end %>
+                        <% if content[:style] %>
+                            style="<%= content[:style] %>"
+                        <% end %>
+                    >
+                      <%== content[:value] %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+    <% end %>
+
+    <!-- footer -->
+    <% if table[:footers].any? %>
+        <tr>
+        <% for footer in table[:footers] %>
+            <th
+                <% if footer[:colspan] %>
+                colspan="<%= footer[:colspan] %>"
+                <% end %>
+                <% if footer[:style] %>
+                style="<%= footer[:style] %>"
+                <% end %>
+            >
+              <%== footer[:value] %>
+            </th>
+        <% end %>
+        </tr>
+    <% end %>
+
+    </table>
+<% end %>

@@ -1,0 +1,14 @@
+<% unless @load_list_time_tracker_pendings.to_s == "true"%>
+    $('#ayty_show_time_tracker_pendings_list').toggle()
+<% else %>
+    $('#ayty_show_time_tracker_pendings_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_time_tracker_pendings",
+                                                                :locals => {:user_id => nil,
+                                                                            :ayty_issue_id_play => nil,
+                                                                            :load_list_time_tracker_pendings => false,
+                                                                            :checked => true,
+                                                                            :ayty_exclude_id_issue_priority => nil,
+                                                                            :ayty_exclude_id_issue_responsible => nil,
+                                                                            :ayty_exclude_id_issue_watcher => nil,
+                                                                            :ayty_outdated_content => false} %>")
+    $('#ayty_show_time_tracker_pendings_list').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/build_tables", :locals => {:table => @table_time_tracker_pendings} %>")
+<% end %>

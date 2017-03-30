@@ -1,0 +1,231 @@
+/*
+##### AYTYCRM - Silvio Fernandes #####
+*/
+
+#admin-menu a.ayty-access-levels, a.ayty-roles, a.ayty-managed-roles, a.ayty-manager-users, a.ayty-time-entry-types {
+    background-image: url('../images/ayty_logo_icon.ico');
+    height: 10px;
+}
+
+#top-menu a.ayty-dashboards { background-image: url(../images/ayty_dashboards.png); }
+
+#top-menu a.ayty-dashboards {
+    background-position: 0% 40%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+}
+
+#top-menu a.ayty-dashboards {
+    color: #86150E;
+    text-decoration-color: #86150E;
+}
+
+/* # STYLE para Ocultar Comentario */
+.icon-eye  { background-image: url('../images/eye_on.ico'); }
+.icon-eye-off  { background-image: url('../images/eye_off.ico'); }
+
+.icon-marked  { background-image: url(../images/fav.png); }
+.icon-marked-off  { background-image: url(../images/fav_off.png); }
+.ayty-journal-marked {
+    background-color: #FCFD8D;
+    border: 1px solid #FCFD8D;
+}
+
+#attachments_fields span.ayty_access_level { display:inline-block; white-space:inherit; margin-left:4px; }
+
+#list_users_ayty {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    float: left;
+    z-index: 100;
+    color: #ffffff;
+    background-color: maroon;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 5px;
+    right: 0;
+    display: none;
+}
+#list_users_ayty p {
+    margin: 1px;
+}
+#list_users_ayty p a {
+    color: #ffffff;
+}
+
+table.ayty_issue_priorities_style {
+    font-size: 9px;
+    white-space:nowrap;
+}
+
+table.ayty_issue_priorities_style th { text-align: left; }
+table.ayty_issue_priorities_style tbody td { text-align: left; }
+table.ayty_issue_priorities_style label.ayty_issue_priorities_handle {
+    font-size: 12px;
+    cursor: move;
+    color: #777;
+}
+table.ayty_issue_priorities_style .color_line_error {
+    background: #FA5050;
+    color: #C864C8;
+}
+
+tr.time-entry td.ayty_time_entry_type { text-align: left; white-space: normal; }
+
+.ayty_issue_alert_div_issue_base {
+    float: left;
+    margin-top: 10px;
+    padding-right: 10px;
+}
+.ayty_issue_alert_image {
+    width: 12px;
+}
+.ayty_issue_alert_div_popup {
+    border: 1px solid #aaa;
+    background-color: #bbb;
+    position: absolute;
+    margin-top: -32px;
+    margin-left: -4px;
+    display: none;
+}
+.ayty_issue_alert_div_popup img {
+    padding: 3px;
+}
+
+
+/*
+# ##### AYTYCRM - Silvio Fernandes #####
+# STYLE para AytyDashboard
+*/
+.ayty-new-block {
+    font-family: Verdana, sans-serif;
+    width: 600px;
+    float: left;
+    font-size: 9px;
+    min-height: 190px;
+    margin: 10px;
+    border: 1px solid #000;
+    background-color:#f6f7f8;
+}
+
+.ayty-new-block ul li {
+    list-style: none;
+    display: inline-block;
+    border-right: 1px solid #f6f7f8;
+    word-wrap: break-word;
+    white-space: pre;
+    -ms-word-break: break-all;
+    word-break:break-all;
+}
+
+.ayty-new-block ul {
+    margin: 0px;
+    padding-top: 2px;
+}
+
+.ayty-new-block ul.odd {
+    background-color:#fff;
+}
+
+.ayty-new-block ul.even {
+    background-color:#ddd;
+}
+
+.ayty-close-block {
+    float: right;
+    cursor: pointer;
+    cursor: hand;
+}
+
+/*container principal*/
+.ayty-dashboard-container {
+    width: 100%;
+}
+
+.ayty-header {
+    background-color: #888;
+    color: #fff;
+}
+
+.ayty-new-block ul.ayty-header-title {
+    margin: 10px;
+    padding: 0px;
+}
+
+.ayty-new-block ul.ayty-header-title li {
+    font-size: 12px;
+}
+
+.ayty-new-block ul li.ayty-issue-alert-image {
+    width: 9px;
+    margin-left: -38px;
+    padding-right: 3px;
+
+}
+
+.ayty-new-block ul li.ayty-issue-alert-image img {
+    width: 9px;
+}
+
+.ayty-new-block ul li.ayty-issue-alert-image div.issue_alert_div_popup {
+    margin-top: -26px;
+}
+
+.ayty-new-block ul li.ayty-header-id {
+    width: 35px;
+}
+
+.ayty-new-block ul li.ayty-header-status {
+    width: 65px;
+}
+
+.ayty-new-block ul li.ayty-header-project {
+    width: 65px;
+}
+
+.ayty-new-block ul li.ayty-header-subject {
+    width: 200px;
+}
+
+.ayty-new-block ul li.ayty-header-rest-db {
+    width: 35px;
+}
+
+.ayty-new-block ul li.ayty-header-rest-sys {
+    width: 35px;
+}
+
+.ayty-new-block ul li.ayty-header-rest-colab {
+    width: 45px;
+}
+
+.ayty-new-block ul li.ayty-header-rest-infra {
+    width: 40px;
+}
+
+.ayty-new-block ul li.ayty-header-due-date {
+    width: 67px;
+    border-right: none;
+}
+
+.ayty-new-block ul li.ayty-total-rest {
+    width: 356px;
+}
+
+.sortable-placeholder {
+    border: 1px dashed #CCC;
+    background-color: #f9f9f9;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.ayty_label_attribute {
+    width: 15%;
+    font-weight: bold;
+    float: left;
+    text-align: right;
+    margin-right: 10px;
+}

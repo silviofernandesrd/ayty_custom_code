@@ -1,0 +1,9 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<% @available_ayty_time_entry_types = AytyTimeEntryType.active %>
+
+<% if @available_ayty_time_entry_types.any? %>
+    <p>
+      <label><%= l(:field_ayty_time_entry_type) %></label>
+      <%= select_tag('time_entry[ayty_time_entry_type_id]', content_tag('option', l(:label_no_change_option), :value => '') + options_from_collection_for_select(@available_ayty_time_entry_types, :id, :name)) %>
+    </p>
+<% end %>

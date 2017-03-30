@@ -1,0 +1,11 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<div id="attributes" class="attributes">
+    <p><%= form.select :ayty_time_entry_type_id, ayty_time_entry_type_options_for_select(time_entry), {:required => true}, :onChange => "toggleStyleOfSelect(this)", :onKeyDown => "return blockKeyboardkeyDown(event);" %></p>
+</div>
+
+<%= javascript_tag do %>
+    $(function ($) {
+        <!-- Campo comentario obrigatorio -->
+        $('#time_entry_comments').closest("p").html('<%=j form.text_field :comments, :size => 100, :maxlength => 255, :required => true %>');
+    });
+<% end %>

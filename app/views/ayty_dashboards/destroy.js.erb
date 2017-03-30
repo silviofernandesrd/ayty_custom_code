@@ -1,0 +1,8 @@
+//##### AYTYCRM - Silvio Fernandes #####
+<% if @users.present? %>
+$('#ayty_new_block_<%= @user.id %>').remove();
+$('#ayty_dashboard_user_id').html("<%= escape_javascript options_from_collection_for_select(@users, :id, :name) %>");
+<% end %>
+<% if @render_403 == true %>
+    alert('<%= t(:text_has_permission_delete_ayty_dashboard) %>');
+<% end %>

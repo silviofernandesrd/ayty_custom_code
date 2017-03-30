@@ -1,0 +1,26 @@
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Comobo com todos os Niveis de Acesso
+-->
+<p>
+  <%= form.select :ayty_access_level_id, ayty_access_level_options_for_select(User.current, custom_field.ayty_access_level_id) %>
+</p>
+
+
+<!--
+# Incluido campo para cadastrar se o campo personalizado permite editar de acordo com o nivel de acesso
+-->
+<p>
+  <%= form.check_box :ayty_deny_edit %>
+</p>
+
+<!--
+# campo para indicar se deve ou nao mostra a data da ultima atualizacao
+-->
+<p>
+  <%= form.check_box :ayty_show_last_update %>
+</p>
+
+<p>
+  <%= form.check_box :clear_value_to_copy %>
+</p>

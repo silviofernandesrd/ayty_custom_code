@@ -1,0 +1,33 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<div class="contextual">
+<%= link_to l(:label_ayty_time_entry_type_new), new_ayty_time_entry_type_path, :class => 'icon icon-add' %>
+</div>
+
+<h2><%=l(:label_ayty_time_entry_types_plural)%></h2>
+
+<table class="list">
+  <thead><tr>
+  <th><%=l(:label_ayty_time_entry_type)%></th>
+  <th><%= l(:field_active) %></th>
+  <th><%=l(:button_sort)%></th>
+  <th></th>
+  </tr></thead>
+  <tbody>
+<% for ayty_time_entry_type in @ayty_time_entry_types %>
+  <tr class="<%= cycle("odd", "even") %>">
+  <td class="name"><%= link_to ayty_time_entry_type.name, edit_ayty_time_entry_type_path(ayty_time_entry_type) %></td>
+  <td class="tick"><%= checked_image ayty_time_entry_type.active? %></td>
+  <td class="reorder">
+    <%= reorder_links('ayty_time_entry_type', {:action => 'update', :id => ayty_time_entry_type, :page => params[:page]}, :put) %>
+  </td>
+  <td class="buttons">
+    <%= delete_link ayty_time_entry_type_path(ayty_time_entry_type) %>
+  </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+
+<p class="pagination"><%= pagination_links_full @ayty_time_entry_types_pages %></p>
+
+<% html_title(l(:label_ayty_time_entry_types_plural)) -%>

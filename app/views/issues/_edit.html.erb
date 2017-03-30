@@ -1,0 +1,103 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<%= labelled_form_for @issue, :html => {:id => 'issue-form', :multipart => true} do |f| %>
+    <%= error_messages_for 'issue', 'time_entry' %>
+    <%= render :partial => 'conflict' if @conflict %>
+    <div class="box">
+    <% if @issue.attributes_editable? %>
+        <fieldset class="tabular"><legend><%= l(:label_change_properties) %></legend>
+        <div id="all_attributes">
+        <%= render :partial => 'form', :locals => {:f => f} %>
+        </div>
+        </fieldset>
+    <% end %>
+    <% if User.current.allowed_to?(:log_time, @project) %>
+        <fieldset class="tabular"><legend><%= l(:button_log_time) %></legend>
+        <%= labelled_fields_for :time_entry, @time_entry do |time_entry| %>
+        <div class="splitcontentleft">
+            <p><%= time_entry.text_field :hours, :size => 6, :label => :label_spent_time, :required => true %> <%= l(:field_hours) %></p>
+            <p><%= time_entry.text_field :comments, :size => 60, :required => true  %></p>
+        </div>
+        <div class="splitcontentright">
+            <p><%= time_entry.select :activity_id, activity_collection_for_select_options, :required => true %></p>
+            <!--
+            ##### AYTYCRM - Silvio Fernandes #####
+            Combo com os tipos de apontamentos
+            -->
+            <p><%= time_entry.select :ayty_time_entry_type_id, ayty_time_entry_type_options_for_select(@time_entry), {:required => true}, :onChange => "toggleStyleOfSelect(this)", :onKeyDown => "return blockKeyboardkeyDown(event);"  %></p>
+        </div>
+        <% @time_entry.custom_field_values.each do |value| %>
+          <p><%= custom_field_tag_with_label :time_entry, value %></p>
+        <% end %>
+        <% end %>
+    </fieldset>
+    <% end %>
+
+    <fieldset><legend><%= l(:field_notes) %></legend>
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    # Comobo com todos os Niveis de Acesso
+    -->
+    <p>
+      <%= f.select :ayty_access_level_id, ayty_access_level_options_for_select(User.current) %><br/>
+    </p>
+
+    <!-- # Ayty Template Notes -->
+    <p>
+      <%= content_tag(:label, l(:field_ayty_template_notes)) %>
+      <%= select_tag 'ayty_template_note_id', options_for_select(ayty_template_notes_collection_for_select_options) %>
+      <%= link_to(image_tag('add.png', :style => 'vertical-align: middle;'),
+                  "#",
+                  :id => "ayty_template_notes_button",
+                  :update => "issue_notes",
+                  :remote => true) %>
+      <br/>
+    </p>
+
+    <%= f.text_area :notes, :cols => 60, :rows => 10, :class => 'wiki-edit', :no_label => true %>
+    <%= wikitoolbar_for 'issue_notes' %>
+
+    <% if @issue.safe_attribute? 'private_notes' %>
+    <%= f.check_box :private_notes, :no_label => true %> <label for="issue_private_notes"><%= l(:field_private_notes) %></label>
+    <% end %>
+
+    <%= call_hook(:view_issues_edit_notes_bottom, { :issue => @issue, :notes => @notes, :form => f }) %>
+    </fieldset>
+
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    # Comobo com todos os Niveis de Acesso
+    <fieldset><legend>< %= l(:label_attachment_plural) %></legend>
+    -->
+    <fieldset>
+    <p>
+        <label for="issue_ayty_access_level_id"><%= l(:field_ayty_access_level) %></label>
+        <%= select_tag('ayty_attachments[ayty_access_level_id]', ayty_access_level_options_for_select(User.current)) %><br/>
+    </p>
+    <legend><%= l(:label_attachment_plural) %></legend>
+
+    <p><%= render :partial => 'attachments/form', :locals => {:container => @issue} %></p>
+    </fieldset>
+    </div>
+
+    <%= f.hidden_field :lock_version %>
+    <%= hidden_field_tag 'last_journal_id', params[:last_journal_id] || @issue.last_journal_id %>
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    # Acrescentado opcao disable_with, para evitar problemas com duplo clique
+    # com essa tag eh enviado apenas um form
+    # alterado nome para atualizar
+    -->
+    <%= submit_tag l(:button_update), :disable_with => l(:label_saving) %>
+    <%= preview_link preview_edit_issue_path(:project_id => @project, :id => @issue), 'issue-form' %>
+    | <%= link_to l(:button_cancel), {}, :onclick => "$('#update').hide(); return false;" %>
+<% end %>
+
+<div id="preview" class="wiki"></div>
+
+<%= javascript_tag do %>
+    $('#ayty_template_notes_button').on('click', function(event){
+        event.preventDefault();
+        $.get("/issues/ayty_template_notes/ayty?ayty_template_note_id=" + $('#ayty_template_note_id').val());
+        return false;
+    });
+<% end %>

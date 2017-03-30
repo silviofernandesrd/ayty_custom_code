@@ -1,0 +1,39 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+
+<div class="contextual">
+    <%= link_to l(:label_ayty_role_new), new_ayty_role_path, :class => 'icon icon-add' %>
+</div>
+
+<h2><%= l(:label_ayty_roles_plural) %></h2>
+
+<% if @ayty_roles.any? %>
+<table class="list ayty_roles">
+  <thead>
+    <tr>
+        <th><%=l(:field_name)%></th>
+        <th><%=l(:field_ayty_role_group_name)%></th>
+        <th><%=l(:field_active)%></th>
+        <th><%=l(:field_ayty_role_allowed_view_dashboard)%></th>
+        <th><%=l(:field_ayty_role_allowed_send_mail_time_entries)%></th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @ayty_roles.each do |ayty_role| %>
+  <tr class="<%= cycle 'odd', 'even' %>">
+    <td><%= link_to h(ayty_role.name), :action => 'edit', :id => ayty_role %></td>
+    <td><%= h(ayty_role.group_name) %></td>
+    <td><%= ayty_role.active ? l(:general_text_Yes):l(:general_text_No) %></td>
+    <td><%= ayty_role.allowed_view_dashboard? ? l(:general_text_Yes):l(:general_text_No) %></td>
+    <td><%= ayty_role.allowed_send_mail_time_entries ? l(:general_text_Yes):l(:general_text_No) %></td>
+    <td class="buttons">
+      <%= link_to l(:button_delete), {:action => 'destroy', :id => ayty_role}, :method => :delete, :class => 'icon icon-del', :data => {:confirm => l(:text_are_you_sure)} %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+<p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+
+<% html_title(l(:label_ayty_roles_plural)) -%>

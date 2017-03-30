@@ -1,0 +1,11 @@
+$("#journal-ayty-hidden-<%= @ayty_journal.id %>").replaceWith('<%= escape_javascript(journal_ayty_hidden_link(@ayty_journal)) %>');
+
+<% if @ayty_journal.ayty_hidden %>
+    $("#change-<%= @ayty_journal.id %>").addClass('ayty-journal-blank')
+    $("#change-<%= @ayty_journal.id %>").removeClass('ayty-journal-filled')
+<% else %>
+    $("#change-<%= @ayty_journal.id %>").removeClass('ayty-journal-blank')
+    $("#change-<%= @ayty_journal.id %>").addClass('ayty-journal-filled')
+<% end %>
+
+if($('#ayty_toggle_journal_').prop("checked") && '<%= @ayty_journal.ayty_hidden? %>'){ toggleDiv($("#change-<%= @ayty_journal.id %>")) }

@@ -1,0 +1,116 @@
+<%= javascript_include_tag 'html.sortable.min.js', :plugin => :ayty_custom_code %>
+
+<% if popup.present? %>
+    <%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', 'responsive', :media => 'all' %>
+    <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
+    <%= javascript_heads %>
+    <%= heads_for_theme %>
+    <%= call_hook :view_layouts_base_html_head %>
+    <!-- page specific tags -->
+    <%= yield :header_tags -%>
+<% end %>
+<div class="ayty-dashboard-container sortable">
+  <% if ayty_dashboards_users.present? %>
+    <% ayty_dashboards_users.each do |i| %>
+      <%= javascript_tag do %>
+          $('.ayty-dashboard-container').append("<%= escape_javascript render :partial => "ayty_dashboards/new_block",
+                                                                              :locals => {:ayty_dashboard => ayty_dashboard,
+                                                                                          :user => i[:user],
+                                                                                          :issues => i[:issues],
+                                                                                          :issue_play => i[:issue_play],
+                                                                                          :issues_total => i[:issues_total],
+                                                                                          :popup => popup }%>")
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<%= javascript_tag do %>
+
+    <% if User.current.can_create_ayty_dashboard? && !popup.present? %>
+        $(function() {
+            $('#add-dashboard').on('click', function(event) {
+                if($('#ayty_dashboard_id').val() == ''){
+                    var name = prompt('Informe o nome do Dashboard:');
+                    if(name != null) {
+                        if(name.length > 0){
+                            $('#new_ayty_dashboard').append('<input type="hidden" value="'+name+'" name="ayty_dashboard[name]">');
+                            $('.ayty-new-block').each(function(i){
+                                $('#new_ayty_dashboard').append('<input type="hidden" value="'+(i+1)+'" name="ayty_dashboard[blocks]['+$(this).data('user_id')+'][position]">');
+                            });
+                            return true;
+                        }else{
+                            alert('<%= t(:text_name_of_ayty_dashboard_required) %>');
+                        }
+                    }
+                }
+                return false;
+            });
+        });
+
+    <% end %>
+    <% if User.current.can_update_ayty_dashboard? %>
+        <% unless popup.present? %>
+            $(function() {
+                $('#add-block').on('click', function(event) {
+                    if($('#ayty_dashboard_id').val() == ''){
+                        $('.ayty-new-block').each(function(i){
+                            $('#new_ayty_dashboard').append('<input type="hidden" value="'+(i+1)+'" name="ayty_dashboard[blocks]['+$(this).data('user_id')+'][position]">');
+                        });
+                    }
+                });
+            });
+        <% end %>
+        var ready, set_positions;
+        set_positions = function(){
+            $('.ayty-new-block').each(function(i){
+                $(this).attr("data-pos",i+1);
+            });
+        }
+        ready = function(){
+            set_positions();
+            $('.sortable').sortable();
+            $('.sortable').sortable().bind('sortupdate', function(e, ui) {
+                var ayty_dashboard_id = $('#ayty_dashboard_id').val();
+                if(ayty_dashboard_id){
+                    updated_order = []
+                    set_positions();
+                    $('.ayty-new-block').each(function(i){
+                        updated_order.push({ayty_dashboard_id: ayty_dashboard_id, user_id: $(this).data("user_id"), position: i+1 });
+                    });
+                    <% unless popup.present? %>
+                        $.ajax({
+                            type: "PUT",
+                            url: '/ayty_dashboards/sort',
+                            data: { order: updated_order }
+                        });
+                    <% end %>
+                }
+            });
+        }
+        $(document).ready(ready);
+    <% end %>
+
+    <% unless popup.present? %>
+        $(function(){
+            $('#ayty_dashboard_id').on('change', function () {
+                var url = '/ayty_dashboards';
+                if($(this).val()){
+                    var url = '/ayty_dashboards/'+$(this).val();
+                }
+                if (url) {
+                    window.location = url;
+                }
+                return false;
+            });
+        });
+
+        <% unless ayty_dashboard.new_record? %>
+            $(function() {
+                $('#open-dashboard-on-popup').on('click', function(event) {
+                    window.open('<%= ayty_dashboard_path(ayty_dashboard, :popup => true) %>','<%= l(:label_ayty_title_dashboard) %>','height=1024,width=1280,titlebar=no,toolbar=no,menubar=no,location=no,directories=no,status=no,scrollbars=yes');
+                });
+            });
+        <% end %>
+    <% end %>
+
+<% end %>

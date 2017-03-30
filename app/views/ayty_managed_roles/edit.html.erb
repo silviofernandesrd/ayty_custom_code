@@ -1,0 +1,7 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<%= title [l(:label_ayty_managed_roles_plural), ayty_managed_roles_path], @role.name %>
+
+<%= form_for @role, url: {action: "update"} do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<%= submit_tag l(:button_save) %>
+<% end %>

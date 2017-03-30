@@ -1,0 +1,90 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<h2><%= l(:label_list_change_issue_priority) %> - <%= @user.name %></h2>
+
+<% if @user %>
+    <div class="div_change_priority_issues">
+      <%= form_tag(ayty_update_priorities_ayty_issue_priorities_path) do %>
+          <input type="hidden" name="user_id" value="<%= @user.id %>">
+          <%= render :partial => "ayty_issue_priorities/build_tables", :locals => {:table => @table} %>
+          <!--
+          ##### AYTYCRM - Silvio Fernandes #####
+          # alterada condicao
+          # if User.current.has_permission_change_issue_priority
+          # para usar novo esquema pela ApiUsersPermission
+          -->
+          <%= submit_tag "Salvar" if User.current.ayty_has_permission_to_save_priotity?(@user.id) %>
+      <% end %>
+    </div>
+<% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+
+<br />
+
+<!--<div id="ayty_show_issue_play_button">
+  <%#= render :partial => "ayty_issue_priorities/ayty_button_play", :locals => { :user_id => @user.id,
+                                                                                :ayty_issue_id_play => @ayty_issue_play,
+                                                                                :load_list_play => true,
+                                                                                :checked => false,
+                                                                                :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                                :ayty_exclude_id_issue_responsible => nil,
+                                                                                :ayty_outdated_content => false } %>
+    </div>
+<div id="ayty_show_issue_play_list"></div>-->
+
+<% if @table_play %>
+    <span><%= l(:label_ayty_issue_play) %></span>
+    <div id="ayty_show_issue_play_list">
+        <%= render :partial => "ayty_issue_priorities/build_tables", :locals => {:table => @table_play} %>
+    </div>
+
+    <br />
+<% end %>
+
+<div id="ayty_show_issues_responsible_button">
+  <%= render :partial => "ayty_issue_priorities/ayty_button_responsible", :locals => {:user_id => @user.id,
+                                                                                      :ayty_issue_id_play => @ayty_issue_play,
+                                                                                      :load_list_responsible => true,
+                                                                                      :checked => false,
+                                                                                      :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                                      :ayty_exclude_id_issue_watcher => nil } %>
+</div>
+<div id="ayty_show_issues_responsible_list"></div>
+
+<br />
+
+<div id="ayty_show_time_tracker_pendings_button">
+  <%= render :partial => "ayty_issue_priorities/ayty_button_time_tracker_pendings", :locals => {:user_id => @user.id,
+                                                                                                :ayty_issue_id_play => @ayty_issue_play,
+                                                                                                :load_list_time_tracker_pendings => true,
+                                                                                                :checked => false,
+                                                                                                :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                                                :ayty_exclude_id_issue_responsible => nil,
+                                                                                                :ayty_exclude_id_issue_watcher => nil,
+                                                                                                :ayty_outdated_content => false} %>
+</div>
+<div id="ayty_show_time_tracker_pendings_list"></div>
+
+<br />
+
+<div id="ayty_show_issues_watcher_button">
+  <%= render :partial => "ayty_issue_priorities/ayty_button_watcher", :locals => {:user_id => @user.id,
+                                                                                  :ayty_issue_id_play => @ayty_issue_play,
+                                                                                  :load_list_watcher => true,
+                                                                                  :checked => false,
+                                                                                  :ayty_exclude_id_issue_priority => @ayty_exclude_id_issue_priority,
+                                                                                  :ayty_exclude_id_issue_responsible => nil,
+                                                                                  :ayty_outdated_content => false } %>
+</div>
+<div id="ayty_show_issues_watcher_list"></div>
+
+
+<%= javascript_tag do %>
+    $(function() {
+        $("#ayty_issue_priorities tbody.content_ayty_issue_priorities").sortable({
+            handle: ".ayty_issue_priorities_handle",
+            update: function(){adjustAytyIssuePriorityInList();}
+        });
+        $("#ayty_issue_priorities tbody.content_ayty_issue_priorities").disableSelection();
+    });
+<% end %>

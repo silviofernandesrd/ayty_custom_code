@@ -1,0 +1,43 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<div class="contextual">
+  <%= form_tag({:action => :edit_managed}, :id => 'new_ayty_managed_users', :method => :get) do %>
+      <%= link_to l(:label_new_ayty_managed_users), "#", :id => 'ayty_managed_users_submit_form', :class => 'icon icon-add' %>
+      <%= select_tag 'user_selected',options_for_select(@ayty_selectable_users.collect {|u| [u.name, u.id]}) %>
+  <% end %>
+</div>
+
+<h2>
+  <%= l(:label_ayty_manager_users_view_managed) %>
+  <%= link_to image_tag('ayty_toggle_view.png', :plugin => 'ayty_custom_code', :size => "32x32"), {:action => :index_manager}, :title => l(:label_ayty_change_view) %>
+</h2>
+
+
+<% if @ayty_users_managed.any? %>
+    <table class="list ayty_manager_users">
+      <thead><tr>
+        <th><%=l(:field_login)%></th>
+        <th></th>
+      </tr></thead>
+      <tbody>
+      <% @ayty_users_managed.each do |user| %>
+          <tr class="<%= cycle 'odd', 'even' %>">
+            <td><%= link_to h(user.name), :action => 'edit_managed', :user_selected => user %></td>
+            <td class="buttons">
+              <%= link_to l(:button_delete), {:action => :delete_all_managed, :id => user}, :method => :delete, :class => 'icon icon-del', :data => {:confirm => l(:text_are_you_sure)} %>
+            </td>
+          </tr>
+      <% end %>
+      </table>
+<% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+
+<% html_title(l(:label_ayty_manager_users_plural)) -%>
+
+<%= javascript_tag do %>
+    $(document).ready(function() {
+        $(document).on("click","#ayty_managed_users_submit_form",function() {
+            $('#new_ayty_managed_users').submit();
+        })
+    });
+<% end %>

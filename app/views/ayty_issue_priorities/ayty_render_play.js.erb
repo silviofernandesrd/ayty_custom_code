@@ -1,0 +1,16 @@
+<% unless @load_list_play.to_s == "true" && @ayty_issue_id_play %>
+    $('#ayty_show_issue_play_list').toggle()
+<% else %>
+
+    $('#ayty_show_issue_play_button').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/ayty_button_play",
+                                                                    :locals => {:user_id => nil,
+                                                                                :ayty_issue_id_play => nil,
+                                                                                :load_list_play => false,
+                                                                                :checked => true,
+                                                                                :ayty_exclude_id_issue_priority => nil,
+                                                                                :ayty_exclude_id_issue_responsible => nil,
+                                                                                :ayty_outdated_content => false} %>")
+
+    $('#ayty_show_issue_play_list').empty().append("<%= escape_javascript render :partial => "ayty_issue_priorities/build_tables", :locals => {:table => @table_play} %>")
+
+<% end %>

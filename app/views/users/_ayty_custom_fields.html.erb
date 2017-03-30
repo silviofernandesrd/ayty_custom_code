@@ -1,0 +1,86 @@
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Comobo com todos os Niveis de Acesso
+-->
+<p>
+  <%= form.select :ayty_access_level_id, ayty_access_level_options_for_select(User.current, user.ayty_access_level_id) %>
+</p>
+
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Cargos da Ayty
+-->
+<p>
+  <%= form.select :ayty_role_id, ayty_roles_options_for_select %>
+</p>
+
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Permite visualizarem os apontamentos
+-->
+<p>
+  <%= form.check_box :has_view_time_tracker %>
+</p>
+
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Proibir apontamento de X dias pra trás. Liberar por pessoa basta usar 0
+-->
+<p>
+  <%= form.text_field :days_to_block_retroactive_time_entry %>
+</p>
+
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+# Travar mais de X horas de apontamento no mesmo dia
+-->
+<p>
+  <%= form.text_field :maximum_hours_allowed_to_time_entry_per_day %>
+</p>
+
+<!--
+##### AYTYCRM - Silvio Fernandes #####
+##### REMOVER QUANDO INTEGRAR COM GP - TEMPORARIO MARIANA #####
+# Cadastro de alguns campos auxiliares para uma consulta da Mariana,
+# quando integrar esta consulta com o GP, favor excluir toda alteracao
+# que estiver com a TAG acima #### REMOVER ...
+-->
+<p>
+  <%= form.check_box :is_business_partner %>
+</p>
+<p>
+  <%= form.text_field :productive_hours  %>
+</p>
+<p>
+  <%= form.text_field :days_of_vacation  %>
+</p>
+<p>
+  <%= form.text_field :code_user %>
+</p>
+<p>
+  <%= form.text_field :date_admission, :size => 10 %><%= calendar_for('user_date_admission') %>
+</p>
+<p>
+  <%= form.text_field :function_name  %>
+</p>
+<p>
+  <%= form.check_box :ayty_collaborative  %>
+</p>
+<p>
+  <%= form.check_box :can_create_ayty_dashboard  %>
+</p>
+<p>
+  <%= form.check_box :can_update_ayty_dashboard  %>
+</p>
+<p>
+  <%= form.check_box :can_delete_ayty_dashboard  %>
+</p>
+
+<%= javascript_tag do %>
+    $(function ($) {
+    <!--# Campo lastname alterado para select tag para padronizar-->
+    <!--# preenchido com valores da tabela ayty_lastnames-->
+    $('#user_lastname').closest("p").html('<%=j render :partial => 'users/ayty_lastnames', :locals => {:form => form} %>');
+
+    });
+<% end %>

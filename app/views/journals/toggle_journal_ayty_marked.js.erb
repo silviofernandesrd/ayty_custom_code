@@ -1,0 +1,7 @@
+$("#journal-ayty-marked-<%= @ayty_journal.id %>").replaceWith('<%= escape_javascript(journal_ayty_marked_link(@ayty_journal)) %>');
+
+<% if @ayty_journal.ayty_marked? %>
+    $("#change-<%= @ayty_journal.id %>").addClass('ayty-journal-marked')
+<% else %>
+    $("#change-<%= @ayty_journal.id %>").removeClass('ayty-journal-marked')
+<% end %>

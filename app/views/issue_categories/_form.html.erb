@@ -1,0 +1,6 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<%= error_messages_for 'category' %>
+<div class="box tabular">
+<p><%= f.text_field :name, :size => 30, :required => true %></p>
+<p><%= f.select :assigned_to_id, ayty_principals_options_for_select(@project.ayty_assignable_users(false,true), @category.assigned_to), :include_blank => true %></p>
+</div>

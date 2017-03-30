@@ -1,0 +1,77 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+
+<!--
+# Acrescentado checkbok para chamar um javascript para ocultar e mostrar divs sem comentarios
+-->
+<p>
+    <%= check_box "ayty_toggle_journal", "", {:checked => ("checked" if User.current.ayty_is_user_ayty?), :onchange => "controlAytyToggleJournal();"} %><%= l(:field_ayty_toggle_journal_history) %>
+</p>
+
+<% reply_links = authorize_for('issues', 'edit') -%>
+<% for journal in journals %>
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    -->
+    <% journal_details = journal.ayty_filter_details(User.current) %>
+    <!--
+    ##### AYTYCRM - Silvio Fernandes #####
+    # Verifica se houve alteração, se não e o usuario não tiver acesso as Notas não exibe nada
+    -->
+    <% if journal_details.length > 0 || (!journal.notes.blank? && ayty_user_can_view_content?(User.current, journal.ayty_access_level)) %>
+
+      <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
+        <div id="note-<%= journal.indice %>">
+            <h4><a href="#note-<%= journal.indice %>" class="journal-link">#<%= journal.indice %></a>
+            <%= avatar(journal.user, :size => "24") %>
+            <%= authoring journal.created_on, journal.user, :label => :label_updated_time_by %>
+            <%= content_tag('span', l(:field_is_private), :class => 'private') if journal.private_notes? %>
+            <!--
+            ##### AYTYCRM - Silvio Fernandes #####
+            # Mostra o nivel de acesso caso não seja a visão do cliente.
+            -->
+            <%= ayty_get_access_level_name(User.current, journal.ayty_access_level) %>
+
+            </h4>
+            <!--
+            ##### AYTYCRM - Silvio Fernandes #####
+            < % if journal.details.any? %>
+            -->
+            <% if journal_details.any? %>
+            <ul class="details">
+              <!--
+              ##### AYTYCRM - Silvio Fernandes #####
+              < % details_to_strings(journal.visible_details).each do |string| %>
+              -->
+              <% details_to_strings(journal_details).each do |string| %>
+                <li><%= string %></li>
+              <% end %>
+            </ul>
+            <% end %>
+
+            <!--
+            ##### AYTYCRM - Silvio Fernandes #####
+            -->
+            <% if ayty_user_can_view_content?(User.current, journal.ayty_access_level) %>
+                <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
+            <% end %>
+        </div>
+      </div>
+      <%= call_hook(:view_issues_history_journal_bottom, { :journal => journal }) %>
+    <% end %>
+<% end %>
+
+<!--
+# Acrescentado para ocultar e divs sem comentarios dos usuarios da Ayty
+-->
+<%= javascript_tag do %>
+    $(function ($) {
+        <% if User.current.ayty_is_user_ayty? %>
+            toggleAytyJournal('div.ayty-journal-blank');
+        <% end %>
+    });
+<% end %>
+
+<!--# Cor nos comentarios-->
+<%= ayty_custom_color_journal(journals) %>
+
+<% heads_for_wiki_formatter if User.current.allowed_to?(:edit_issue_notes, issue.project) || User.current.allowed_to?(:edit_own_issue_notes, issue.project) %>

@@ -1,0 +1,29 @@
+<h2><%= l(:label_ayty_title_dashboard) %></h2>
+<%= form_for ayty_dashboard, :remote => true do |f| %>
+  <p>
+    <label class="ayty_label_attribute"><%= t(:label_ayty_dashboard_plural) %></label>
+    <%= f.select(:id, AytyDashboard.all.collect { |e| [e.name, e.id] }.sort, {:include_blank => true}) %>
+    <%= image_submit_tag('add.png', :style => 'vertical-align: middle;', :name => "add", :value => "dashboard", :id=> "add-dashboard") if User.current.can_create_ayty_dashboard? && ayty_dashboard.new_record? %>
+    <% if User.current.can_delete_ayty_dashboard? && !ayty_dashboard.new_record? %>
+        <%= link_to(
+                image_tag('delete.png', :style => 'vertical-align: middle;'),
+                ayty_dashboard_path(ayty_dashboard, :del => "dashboard"),
+                :data => {:confirm => l(:text_are_you_sure)},
+                :method => :delete,
+                :class => 'delete',
+                :remote => true,
+                :title => l(:button_delete)
+            ) %>
+    <% end %>
+    <% unless ayty_dashboard.new_record? %>
+        <%= link_to_function image_tag('zoom_in.png', :style => 'vertical-align: middle;'), {}, :id => "open-dashboard-on-popup", :title => t(:label_ayty_dashboard_popup) %>
+    <% end %>
+  </p>
+  <% if User.current.can_update_ayty_dashboard? %>
+      <p>
+        <label class="ayty_label_attribute"><%= t(:label_ayty_dashboard_add_new_user) %></label>
+        <%= f.select :user_id, users.collect {|p| [p.name, p.id]} %>
+        <%= image_submit_tag('add.png', :style => 'vertical-align: middle;', :name => "add", :value => "block", :id=> "add-block") %>
+      </p>
+  <% end %>
+<% end %>

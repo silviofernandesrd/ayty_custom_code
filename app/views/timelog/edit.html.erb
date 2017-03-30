@@ -1,0 +1,14 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+
+<h2><%= l(:label_spent_time) %></h2>
+
+<%= labelled_form_for @time_entry, :url => time_entry_path(@time_entry) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <!--
+  ##### AYTYCRM - Silvio Fernandes #####
+  # Acrescentado opcao disable_with, para evitar problemas com duplo clique
+  # com essa tag eh enviado apenas um form
+  -->
+  <!--< %= submit_tag l(:button_save) %>-->
+  <%= submit_tag l(:button_save), :disable_with => l(:label_saving) %>
+<% end %>

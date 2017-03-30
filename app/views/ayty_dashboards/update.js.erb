@@ -1,0 +1,14 @@
+//##### AYTYCRM - Silvio Fernandes #####
+<% if @users.present? %>
+$('.ayty-dashboard-container').append("<%= escape_javascript render :partial => "ayty_dashboards/new_block",
+                                                                    :locals => {:ayty_dashboard => @ayty_dashboard,
+                                                                                :user => @user,
+                                                                                :issues => @issues,
+                                                                                :issue_play => @issue_play,
+                                                                                :issues_total => @issues_total,
+                                                                                :popup => nil }%>")
+$('#ayty_dashboard_user_id').html("<%= escape_javascript options_from_collection_for_select(@users, :id, :name) %>");
+<% end %>
+<% if @render_403 == true %>
+    alert('<%= t(:text_has_permission_update_ayty_dashboard) %>');
+<% end %>

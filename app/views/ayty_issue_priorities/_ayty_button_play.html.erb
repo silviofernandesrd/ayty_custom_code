@@ -1,0 +1,12 @@
+<%= check_box_tag "ayty_show_issue_play", "", checked, :data => { :remote => true,
+                                                                      :url => url_for( :action => :ayty_render_play,
+                                                                                       :user_id => user_id,
+                                                                                       :ayty_issue_id_play => ayty_issue_id_play,
+                                                                                       :load_list_play => load_list_play,
+                                                                                       :ayty_exclude_id_issue_priority => ayty_exclude_id_issue_priority,
+                                                                                       :ayty_exclude_id_issue_responsible => ayty_exclude_id_issue_responsible) }  %>
+<%
+   label_check_box = l(:label_ayty_show_issue_play)
+   label_check_box += " #{l(:label_ayty_outdated_content)}" if ayty_outdated_content.to_s == "true"
+%>
+<%= label_check_box %>

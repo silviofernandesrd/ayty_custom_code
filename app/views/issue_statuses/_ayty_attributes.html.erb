@@ -1,0 +1,6 @@
+<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
+<p>
+  <%= content_tag :label, l(:field_ayty_assignable_responsible) %>
+  <%= hidden_field_tag "issue_status[ayty_assignable_responsible]", 0 %>
+  <%= check_box_tag "issue_status[ayty_assignable_responsible]", 1, issue_status.ayty_assignable_responsible? %>
+</p>
