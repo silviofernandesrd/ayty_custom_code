@@ -3,7 +3,7 @@ module AytyIssueAlertImagesHelper
 
   # Metodo para retornar uma imagem de acordo com algumas regras
   def ayty_get_alerts_by_issue(issue, view_context=nil, div_base_class = nil)
-    alerts = AytyIssueAlertImage.check_validates(issue)
+    alerts = ::AytyIssueAlertImage.check_validates(issue)
     if alerts
       images_alert = Array.new
       alerts.each {|a|

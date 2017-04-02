@@ -1,9 +1,8 @@
-##### AYTYCRM - Silvio Fernandes #####
 class AytyIssuePrioritiesController < ApplicationController
 
   include ActionView::Context
   include ActionView::Helpers::UrlHelper
-  include AytyIssueAlertImagesHelper
+  include ::AytyIssueAlertImagesHelper
   include AytyIssuePrioritiesHelper
   include WatchersHelper
 
@@ -29,6 +28,7 @@ class AytyIssuePrioritiesController < ApplicationController
         { :value => l(:field_status) },
         { :value => l(:field_project) },
         { :value => l(:field_subject) },
+        { :value => l(:label_development_date_short) },
         { :value => l(:field_due_date) },
         { :value => l(:label_ayty_issue_priorities_remainder_time_sis) },
         { :value => l(:label_ayty_issue_priorities_remainder_time_bd) },
@@ -72,7 +72,7 @@ class AytyIssuePrioritiesController < ApplicationController
       @ayty_issue_play = time_tracker_play.issue.id if time_tracker_play
 
       # tickets que o usuario possui pendentes nas ultimas 36 horas
-      time_trackers_by_user_last_hours = ayty_time_trackers_by_user.where("updated_on > DATEADD(HH, -36, GETDATE())")
+      time_trackers_by_user_last_hours = ayty_time_trackers_by_user.where('updated_on > ?', 36.hours.ago)
 
       # variaveis para somas
       sum_est_time_sis = 0
@@ -141,6 +141,8 @@ class AytyIssuePrioritiesController < ApplicationController
 
         column[:contents] << { :value => (view_context.link_to issue_subject, :controller => 'issues', :action => 'show', :id => issue), :title => issue.subject}
 
+        column[:contents] << { :value => format_date(issue.development_date), :style => ayty_background_color_sla_for_date(issue.development_date)}
+
         column[:contents] << { :value => format_date(issue.due_date), :style => ayty_background_color_sla_for_date(issue.due_date)}
 
         column[:contents] << {  :value => remainder_time_sis,
@@ -197,7 +199,7 @@ class AytyIssuePrioritiesController < ApplicationController
 
       # footer
       @table[:footers] = [
-          { :value => "&nbsp;", :colspan => "8" },
+          { :value => "&nbsp;", :colspan => "9" },
           { :value =>  sum_remainder_time_sis },
           { :value =>  sum_remainder_time_bd},
           { :value =>  sum_remainder_time_sis_colab},

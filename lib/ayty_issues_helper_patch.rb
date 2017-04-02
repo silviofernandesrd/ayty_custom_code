@@ -4,6 +4,30 @@ include Redmine::Export::PDF
 
 IssuesHelper.class_eval do
 
+  def issue_fields_rows_priority_show_only_ayty_user(rows, issue)
+    rows.left l(:field_priority), issue.priority.name, class: 'priority' if User.current.ayty_is_user_ayty?
+  end
+
+  def issue_fields_rows_due_date_show_only_ayty_user(rows, issue)
+    rows.right l(:field_due_date), format_date(issue.due_date), class: 'due-date' if User.current.ayty_is_user_ayty?
+  end
+
+  def issue_fields_rows_development_date_show_only_ayty_user(rows, issue)
+    rows.right l(:field_development_date), format_date(issue.development_date), class: 'development-date' if User.current.ayty_is_user_ayty?
+  end
+
+  def get_color_by_validates_ayty_management(value)
+    case value.to_s
+    when '2'
+      return 'blue'
+    when '3'
+      return 'gold'
+    when '4'
+      return 'red'
+    end
+    'grey'
+  end
+
   # OVERRIDE
   # Returns an array of users that are proposed as watchers
   # on the new issue form

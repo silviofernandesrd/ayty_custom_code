@@ -63,10 +63,11 @@ module AytyProjectPatch
         # feito join com a MemberRole e depois com a AytyManagedRole para filtrar somente os papeis
         # que o usuario logado pode ver
         ayty_filter_managed_roles(:managed_roles => managed_roles).
-        joins(:members => :roles).
+        joins(:ayty_access_level, :members => :roles).
         where(:type => types,
               :members => {:project_id => project_id},
-              :roles => {:assignable => true}).
+              :roles => {:assignable => true},
+              :ayty_access_levels => {:ayty_access => true}).
         uniq.
         sorted
   end

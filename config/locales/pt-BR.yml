@@ -177,3 +177,12 @@ pt-BR:
   text_name_of_ayty_dashboard_required: Favor informar um nome para o Dashboard
 
   field_clear_value_to_copy: Limpar valor ao copiar?
+
+  field_development_date: Data de Desenvolvimento
+  label_development_date_short: Data Desenv
+
+  ayty_managements:
+    title: AytyManagement
+    links_to_validates:
+      label_has_pending: Pendências
+      label_has_checklist: Checklist de Demandas/Projetos

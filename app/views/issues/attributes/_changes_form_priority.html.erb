@@ -1,0 +1,6 @@
+<% if User.current.ayty_is_user_ayty? %>
+    <% if issue.safe_attribute? 'priority_id' %>
+    <!--desabilita a prioridade-->
+    <p><%= form.select :priority_id, (priorities.collect {|p| [p.name, p.id]}), {:required => true}, {:disabled => true} %></p>
+    <% end %>
+<% end %>

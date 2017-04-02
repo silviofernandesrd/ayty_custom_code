@@ -1,0 +1,17 @@
+<h3 class="title"><%= l('ayty_managements.title') %></h3>
+
+<% if @pendings.any? %>
+  <table class="list">
+  <% header = @pendings.shift %>
+  <% header.each do |column| %>
+    <th><%= column %></th>
+  <% end %>
+  <% @pendings.each do |pending| %>
+    <tr class="<%= cycle 'odd', 'even' %>">
+    <% pending.each do |column| %>
+      <td><%= column %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+<% end %>

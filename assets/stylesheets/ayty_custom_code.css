@@ -229,3 +229,17 @@ tr.time-entry td.ayty_time_entry_type { text-align: left; white-space: normal; }
     text-align: right;
     margin-right: 10px;
 }
+
+.overflow-x  {
+  overflow-x: scroll;
+}
+
+.ui-dialog {
+  color:#303030;
+  background:#e8eaec;
+}
+
+.ui-dialog-titlebar {
+  background: #86150E;
+  color:white;
+}

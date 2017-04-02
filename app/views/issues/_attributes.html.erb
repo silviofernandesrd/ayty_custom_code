@@ -1,4 +1,3 @@
-<!--override-->
 <%= labelled_fields_for :issue, @issue do |f| %>
 
 <div class="splitcontent">
@@ -11,36 +10,32 @@
 <p><label><%= l(:field_status) %></label> <%= @issue.status %></p>
 <% end %>
 
-<% if User.current.ayty_is_user_ayty? %>
-    <% if @issue.safe_attribute? 'priority_id' %>
-    <!--desabilita a prioridade-->
-    <p><%= f.select :priority_id, (@priorities.collect {|p| [p.name, p.id]}), {:required => true}, {:disabled => true} %></p>
-    <% end %>
-<% end %>
+<%= render partial: 'issues/attributes/changes_form_priority', locals: { form: f, issue: @issue, priorities: @priorities } %>
 
-<% if @issue.safe_attribute? 'assigned_to_id' %>
-<!--alterado para filtrar a visibilidade entre os cargos-->
-<p><%= f.select :assigned_to_id, ayty_principals_options_for_select(@issue.ayty_assignable_users(false, true, true), @issue.assigned_to, @issue), :include_blank => true, :required => @issue.required_attribute?('assigned_to_id') %></p>
-<% end %>
+<%= render partial: 'issues/attributes/changes_form_assigned_to', locals: { form: f, issue: @issue } %>
 
 <% if @issue.safe_attribute?('category_id') && @issue.project.issue_categories.any? %>
 <p><%= f.select :category_id, (@issue.project.issue_categories.collect {|c| [c.name, c.id]}), :include_blank => true, :required => @issue.required_attribute?('category_id') %>
-<%= link_to(image_tag('add.png', :style => 'vertical-align: middle;'),
+<%= link_to(l(:label_issue_category_new),
             new_project_issue_category_path(@issue.project),
             :remote => true,
             :method => 'get',
             :title => l(:label_issue_category_new),
-            :tabindex => 200) if User.current.allowed_to?(:manage_categories, @issue.project) %></p>
+            :tabindex => 200,
+            :class => 'icon-only icon-add'
+           ) if User.current.allowed_to?(:manage_categories, @issue.project) %></p>
 <% end %>
 
 <% if @issue.safe_attribute?('fixed_version_id') && @issue.assignable_versions.any? %>
 <p><%= f.select :fixed_version_id, version_options_for_select(@issue.assignable_versions, @issue.fixed_version), :include_blank => true, :required => @issue.required_attribute?('fixed_version_id') %>
-<%= link_to(image_tag('add.png', :style => 'vertical-align: middle;'),
+<%= link_to(l(:label_version_new),
             new_project_version_path(@issue.project),
             :remote => true,
             :method => 'get',
             :title => l(:label_version_new),
-            :tabindex => 200) if User.current.allowed_to?(:manage_versions, @issue.project) %>
+            :tabindex => 200,
+            :class => 'icon-only icon-add'
+           ) if User.current.allowed_to?(:manage_versions, @issue.project) %>
 </p>
 <% end %>
 </div>
@@ -53,20 +48,14 @@
 
 <% if @issue.safe_attribute? 'start_date' %>
 <p id="start_date_area">
-  <%= f.text_field(:start_date, :size => 10, :required => @issue.required_attribute?('start_date')) %>
+  <%= f.date_field(:start_date, :size => 10, :required => @issue.required_attribute?('start_date')) %>
   <%= calendar_for('issue_start_date') %>
 </p>
 <% end %>
 
-<!--Alterado para mostrar a data prevista somente se for usuario ayty-->
-<% if User.current.ayty_is_user_ayty? %>
-    <% if @issue.safe_attribute? 'due_date' %>
-    <p id="due_date_area">
-      <%= f.text_field(:due_date, :size => 10, :required => @issue.required_attribute?('due_date')) %>
-      <%= calendar_for('issue_due_date') %>
-    </p>
-    <% end %>
-<% end %>
+<%= render partial: 'issues/attributes/changes_form_due_date', locals: { form: f, issue: @issue } %>
+
+<%= render partial: 'issues/attributes/add_form_development_date', locals: { form: f, issue: @issue } %>
 
 <% if @issue.safe_attribute? 'estimated_hours' %>
 <p><%= f.text_field :estimated_hours, :size => 3, :required => @issue.required_attribute?('estimated_hours') %> <%= l(:field_hours) %></p>

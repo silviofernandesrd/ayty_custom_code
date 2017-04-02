@@ -1,8 +1,6 @@
-<!--override-->
 <%= render :partial => 'action_menu' %>
 
-<!--mostrar os alertas em imagens-->
-<%= ayty_get_alerts_by_issue(@issue, nil, "ayty_issue_alert_div_issue_base") %>
+<%= render partial: 'issues/attributes/add_show_alert_by_issue', locals: { issue: @issue } %>
 
 <h2><%= issue_heading(@issue) %></h2>
 
@@ -31,6 +29,9 @@
 <%= render_issue_subject_with_tree(@issue) %>
 </div>
         <p class="author">
+
+        <%= render partial: 'ayty_managements/links_to_validates', locals: { issue: @issue } %>
+
         <%= authoring @issue.created_on, @issue.author %>.
         <% if @issue.created_on != @issue.updated_on %>
         <%= l(:label_updated_time, time_tag(@issue.updated_on)).html_safe %>.
@@ -40,8 +41,8 @@
 <div class="attributes">
 <%= issue_fields_rows do |rows|
   rows.left l(:field_status), @issue.status.name, :class => 'status'
-  #Caso usuario nao for ayty, remove os campos de prioridade
-  rows.left l(:field_priority), @issue.priority.name, :class => 'priority' if User.current.ayty_is_user_ayty?
+  # override
+  issue_fields_rows_priority_show_only_ayty_user(rows, @issue)
 
   unless @issue.disabled_core_fields.include?('assigned_to_id')
     rows.left l(:field_assigned_to), avatar(@issue.assigned_to, :size => "14").to_s.html_safe + (@issue.assigned_to ? link_to_user(@issue.assigned_to) : "-"), :class => 'assigned-to'
@@ -56,11 +57,13 @@
   unless @issue.disabled_core_fields.include?('start_date')
     rows.right l(:field_start_date), format_date(@issue.start_date), :class => 'start-date'
   end
-  #Caso usuario nao for ayty, remove os campos de data prevista
-  if User.current.ayty_is_user_ayty?
-      unless @issue.disabled_core_fields.include?('due_date')
-        rows.right l(:field_due_date), format_date(@issue.due_date), :class => 'due-date'
-      end
+  unless @issue.disabled_core_fields.include?('due_date')
+    # override
+    issue_fields_rows_due_date_show_only_ayty_user(rows, @issue)
+  end
+  # override
+  unless @issue.disabled_core_fields.include?('due_date')
+    issue_fields_rows_development_date_show_only_ayty_user(rows, @issue)
   end
   unless @issue.disabled_core_fields.include?('done_ratio')
     rows.right l(:field_done_ratio), progress_bar(@issue.done_ratio, :legend => "#{@issue.done_ratio}%"), :class => 'progress'
@@ -85,7 +88,7 @@ end %>
 <% if @issue.description? %>
 <div class="description">
   <div class="contextual">
-  <%= link_to l(:button_quote), quoted_issue_path(@issue), :remote => true, :method => 'post', :class => 'icon icon-comment' if authorize_for('issues', 'edit') %>
+  <%= link_to l(:button_quote), quoted_issue_path(@issue), :remote => true, :method => 'post', :class => 'icon icon-comment' if @issue.notes_addable? %>
   </div>
 
   <p><strong><%=l(:field_description)%></strong></p>

@@ -1,0 +1,8 @@
+<% if User.current.ayty_is_user_ayty? %>
+    <% if issue.safe_attribute? 'due_date' %>
+    <p id="due_date_area">
+      <%= form.text_field(:due_date, :size => 10, :required => issue.required_attribute?('due_date')) %>
+      <%= calendar_for('issue_due_date') %>
+    </p>
+    <% end %>
+<% end %>

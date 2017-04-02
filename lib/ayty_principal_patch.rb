@@ -12,7 +12,7 @@ module AytyPrincipalPatch
         # filtra somente usuarios ayty
         if args[:ayty_user]
           joins(:ayty_access_level).
-          where("[ayty_access_levels].[ayty_access] = 1")
+          where("ayty_access_levels.ayty_access = ?", true)
         end
       }
 
@@ -20,8 +20,8 @@ module AytyPrincipalPatch
 
         # se algum role possui ayty_all_roles_managed true nao filtra por role_id
         unless args[:managed_roles].any?(&:ayty_all_roles_managed?)
-          joins("LEFT JOIN [ayty_managed_roles] ON [ayty_managed_roles].[managed_role_id] = [member_roles].[role_id] ").
-          where("[ayty_managed_roles].[role_id] in (#{args[:managed_roles].map(&:id).join(',')}) ")
+          joins("LEFT JOIN ayty_managed_roles ON ayty_managed_roles.managed_role_id = member_roles.role_id ").
+          where("ayty_managed_roles.role_id in (#{args[:managed_roles].map(&:id).join(',')}) ")
         end
 
       }

@@ -1,0 +1,38 @@
+<div class="contextual">
+  <% if User.current.ayty_is_user_ayty? %>
+    <% if issue.has_pending.to_s != '1' %>
+      <%= link_to(image_tag(
+                    "ayty-management/pending-#{get_color_by_validates_ayty_management(issue.has_pending)}-icon.png",
+                    plugin: 'ayty_custom_code',
+                    size: '32x32'
+                  ),
+                  ayty_managements_has_pending_path(issue.id),
+                  remote: true,
+                  method: 'get',
+                  title: t('.label_has_pending'),
+                  tabindex: 200
+                 ) %>
+    <% else %>
+      <%= image_tag("ayty-management/pending-#{get_color_by_validates_ayty_management(issue.has_pending)}-icon.png",
+                    plugin: 'ayty_custom_code',
+                    size: '32x32') %>
+    <% end %>
+    <% if issue.has_checklist.to_s != '1' %>
+      <%= link_to(image_tag(
+                    "ayty-management/checklist-#{get_color_by_validates_ayty_management(issue.has_checklist)}-icon.png",
+                    plugin: 'ayty_custom_code',
+                    size: '32x32'
+                  ),
+                  ayty_managements_has_checklist_path(issue.id),
+                  remote: true,
+                  method: 'get',
+                  title: t('.label_has_checklist'),
+                  tabindex: 200
+                 ) %>
+    <% else %>
+      <%= image_tag("ayty-management/checklist-#{get_color_by_validates_ayty_management(issue.has_checklist)}-icon.png",
+                    plugin: 'ayty_custom_code',
+                    size: '32x32') %>
+    <% end %>
+  <% end %>
+</div>

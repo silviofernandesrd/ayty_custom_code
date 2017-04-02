@@ -1,29 +1,24 @@
-##### AYTYCRM - Silvio Fernandes #####
 ApplicationHelper.class_eval do
-
-  # Returns a string for users/groups option tags
-  # Override para incluir alem da funcao ME a funcao ASSIGNED_TO
-  # pegando o valor do Atribuido Para e adicionandd mais uma opcao se existir
   def ayty_principals_options_for_select(collection, selected=nil, issue=nil)
-    s = ''
+    options = ''
+    user_current = User.current
 
-    # mim
-    if collection.include?(User.current)
-      s << content_tag('option', "<< #{l(:label_me)} >>", :value => User.current.id)
+    if collection.include?(user_current)
+      options << content_tag('option', "<< #{l(:label_me)} >>", value: user_current.id)
     end
 
     if issue
-      # atribuido para
-      if issue.assigned_to
-        if collection.include?(issue.assigned_to)
-          s << content_tag('option', "<< #{l(:field_assigned_to)} >>", :value => issue.assigned_to_id)
+      assigned_to = issue.assigned_to
+      if assigned_to
+        if collection.include?(assigned_to)
+          options << content_tag('option', "<< #{l(:field_assigned_to)} >>", value: issue.assigned_to_id)
         end
       end
 
-      # autor
-      if issue.author
-        if collection.include?(issue.author)
-          s << content_tag('option', "<< #{l(:label_author)} >>", :value => issue.author_id)
+      author = issue.author
+      if author
+        if collection.include?(author)
+          options << content_tag('option', "<< #{l(:label_author)} >>", value: issue.author_id)
         end
       end
     end
@@ -31,26 +26,28 @@ ApplicationHelper.class_eval do
     groups = ''
     collection.sort.each do |element|
       selected_attribute = ' selected="selected"' if option_value_selected?(element, selected) || element.id.to_s == selected
-      (element.is_a?(Group) ? groups : s) << %(<option value="#{element.id}"#{selected_attribute}>#{h element.name}</option>)
+      (element.is_a?(Group) ? groups : options) << %(<option value="#{element.id}"#{selected_attribute}>#{h element.name}</option>)
     end
     unless groups.empty?
-      s << %(<optgroup label="#{h(l(:label_group_plural))}">#{groups}</optgroup>)
+      options << %(<optgroup label="#{h(l(:label_group_plural))}">#{groups}</optgroup>)
     end
-    s.html_safe
+    options.html_safe
   end
 
   # Retorna Array com Niveis de Acesso para um Select
-  def render_list_ayty_user_as_link_to_issue_priority(user=User.current)
+  def render_list_ayty_user_as_link_to_issue_priority
     ayty_users = User.ayty_users
     links = ''
     if ayty_users.any?
-      ayty_users.each {|user|
+      ayty_users.each do |user|
         links += content_tag(:p) do
-          link_to(user.name, {:controller => :ayty_issue_priorities, :id => user.id}, :onclick => "$('#list_users_ayty').toggle()")
+          link_to(user.name, { controller: :ayty_issue_priorities,
+                               id: user.id },
+                  onclick: "$('#list_users_ayty').toggle()")
         end
-      }
+      end
     end
-    return links.html_safe
+    links.html_safe
   end
 
   # override

@@ -1,8 +1,7 @@
-##### AYTYCRM - Silvio Fernandes #####
-
 IssuesController.class_eval do
 
   before_filter :authorize, :except => [:index, :new, :create, :ayty_template_notes]
+  before_filter :verify_pendencies, only: [:show]
 
   # OVERRIDE
   # Bulk edit/copy a set of issues
@@ -63,4 +62,9 @@ IssuesController.class_eval do
     end
   end
 
+  private
+
+  def verify_pendencies
+   @issue.verify_pendencies if @issue
+  end
 end

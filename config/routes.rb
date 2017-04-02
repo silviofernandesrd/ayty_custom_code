@@ -51,3 +51,7 @@ resources :ayty_issue_priorities do
 end
 
 get '/time_trackers/add_status_transition', :to => 'time_trackers#add_status_transition'
+
+get 'ayty_managements/has_pending/:issue_id', to: 'ayty_managements#has_pending', as: 'ayty_managements_has_pending'
+
+get 'ayty_managements/has_checklist/:issue_id', to: 'ayty_managements#has_checklist', as: 'ayty_managements_has_checklist'

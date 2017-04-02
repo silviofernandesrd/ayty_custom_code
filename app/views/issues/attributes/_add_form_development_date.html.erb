@@ -1,0 +1,8 @@
+<% if User.current.ayty_is_user_ayty? %>
+  <% if issue.safe_attribute? 'development_date' %>
+  <p id="development_date_area">
+    <%= form.date_field(:development_date, :size => 10, :required => issue.required_attribute?('development_date')) %>
+    <%= calendar_for('issue_development_date') %>
+  </p>
+  <% end %>
+<% end %>

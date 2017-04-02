@@ -20,7 +20,7 @@ en:
   field_assigned_to_areq: Responsible Areq
   field_assigned_to_inf: Responsible Infra
 
-  label_list_users_ayty: Usuários Ayty
+  label_list_ayty_users: Usuários Ayty
 
   label_list_change_issue_priority: Lista/Alterar prioridade dos Tickets
 
@@ -174,3 +174,12 @@ en:
   text_name_of_ayty_dashboard_required: Favor informar um nome para o Dashboard
 
   field_clear_value_to_copy: Limpar valor ao copiar?
+
+  field_development_date: Data de Desenvolvimento
+  label_development_date_short: Data Desenv
+
+  ayty_managements:
+    title: AytyManagement
+    links_to_validates:
+      label_has_pending: Pendências
+      label_has_checklist: Checklist de Demandas/Projetos
