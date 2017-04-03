@@ -1,33 +1,38 @@
-##### AYTYCRM - Silvio Fernandes #####
-
 JournalsHelper.class_eval do
-
   # OVERRIDE
   def render_notes(issue, journal, options={})
     content = ''
-
-    # permite editar o proprio comentario em até 10 min, depois somente se tiver acesso via permissoes do projeto
-    #editable = User.current.logged? && (User.current.allowed_to?(:edit_issue_notes, issue.project) || (journal.user == User.current && User.current.allowed_to?(:edit_own_issue_notes, issue.project)))
     editable = User.current.logged? && (User.current.allowed_to?(:edit_issue_notes, issue.project) ||
                                         (journal.user == User.current && User.current.allowed_to?(:edit_own_issue_notes, issue.project)) ||
-                                        (journal.user == User.current && journal.created_on >= DateTime.current().ago(600))
+                                        (journal.user == User.current && journal.created_on >= 10.minutes.ago)
     )
-
     links = []
     if !journal.notes.blank?
-      # link para ocultar comentario
       links << journal_ayty_hidden_link(journal)
 
       links << journal_ayty_marked_link(journal)
 
-      links << link_to(image_tag('comment.png'),
-                       {:controller => 'journals', :action => 'new', :id => issue, :journal_id => journal},
+      links << link_to(l(:button_quote),
+                       quoted_issue_path(issue, :journal_id => journal),
                        :remote => true,
                        :method => 'post',
-                       :title => l(:button_quote)) if options[:reply_links]
-      links << link_to_in_place_notes_editor(image_tag('edit.png'), "journal-#{journal.id}-notes",
-                                             { :controller => 'journals', :action => 'edit', :id => journal, :format => 'js' },
-                                             :title => l(:button_edit)) if editable
+                       :title => l(:button_quote),
+                       :class => 'icon-only icon-comment'
+                      ) if options[:reply_links]
+      links << link_to(l(:button_edit),
+                       edit_journal_path(journal),
+                       :remote => true,
+                       :method => 'get',
+                       :title => l(:button_edit),
+                       :class => 'icon-only icon-edit'
+                      ) if editable
+      links << link_to(l(:button_delete),
+                       journal_path(journal, :notes => ""),
+                       :remote => true,
+                       :method => 'put', :data => {:confirm => l(:text_are_you_sure)},
+                       :title => l(:button_delete),
+                       :class => 'icon-only icon-del'
+                      ) if editable
     end
     content << content_tag('div', links.join(' ').html_safe, :class => 'contextual') unless links.empty?
     content << textilizable(journal, :notes)
@@ -58,6 +63,4 @@ JournalsHelper.class_eval do
 
     content_tag("span", link, :id => "journal-ayty-marked-#{object.id}")
   end
-
-
 end

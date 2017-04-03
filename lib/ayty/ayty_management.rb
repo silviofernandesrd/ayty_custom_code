@@ -29,27 +29,33 @@ module Ayty::AytyManagement
   private
 
   def sql_to_validates
-    "#{begin_sql_with} spr_redmine_has_pending #{id}, '#{usermail}'"
+    case ActiveRecord::Base.connection_config[:adapter]
+    when 'postgresql'
+      "select * from spr_redmine_has_pending(#{id}, '#{usermail}')"
+    when 'sqlserver'
+      "exec spr_redmine_has_pending #{id}, '#{usermail}'"
+    end
   end
 
   def sql_to_pending
-    "#{begin_sql_with} spr_redmine_list_pending 1, 0, #{id}, '#{usermail}'"
+    case ActiveRecord::Base.connection_config[:adapter]
+    when 'postgresql'
+      "select * from spr_redmine_list_pending(1, 0, #{id}, '#{usermail}')"
+    when 'sqlserver'
+      "exec spr_redmine_list_pending 1, 0, #{id}, '#{usermail}'"
+    end
   end
 
   def sql_to_checklist
-    "#{begin_sql_with} spr_redmine_list_pending 0, 1, #{id}, '#{usermail}'"
+    case ActiveRecord::Base.connection_config[:adapter]
+    when 'postgresql'
+      "select * from spr_redmine_list_pending(0, 1, #{id}, '#{usermail}')"
+    when 'sqlserver'
+      "exec spr_redmine_list_pending 0, 1, #{id}, '#{usermail}'"
+    end
   end
 
   def usermail
     User.current.mail || 'nomail'
-  end
-
-  def begin_sql_with
-    case ActiveRecord::Base.connection_config[:adapter]
-    when 'postgresql'
-      'select * from'
-    when 'sqlserver'
-      'exec'
-    end
   end
 end
