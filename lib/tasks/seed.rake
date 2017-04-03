@@ -31,6 +31,16 @@ namespace :redmine do
         user.ayty_access_level = access_level_default
         user.save
       end
+      p '- criando lastnames'
+      [
+        '- Adm', '- An.Apl', '- An.Neg', '- An.Req', '- An.Sist', '- BD',
+        '- Bk.Of', '- C. Post', '- Cliente', '- Comercial', '- Coord Seg Inf',
+        '- Coord TI', '- Diretor', '- Ejec. Cuentas', '- Ger HD', '- Ger.Des',
+        '- Ger.TI', '- HD', '- Infra', '- PMO', '- RH', '- Sup. Tec.', '- Te.S',
+        '- Ti', 'Anonymous', 'AYTY CRM'
+      ].each do |lastname|
+        AytyLastname.find_or_create_by(lastname: lastname, active: true)
+      end
       p '- aplicando tema de estilos da Ayty'
       # este passo requer que a pasta com os estilos da ayty estejam em:
       # redmine_root_folder/public/themes

@@ -6,6 +6,8 @@ class AytyIssuePrioritiesController < ApplicationController
   include AytyIssuePrioritiesHelper
   include WatchersHelper
 
+  before_filter :validate_ayty_user_access
+
   def index
 
     @user = User.find(params[:id])
@@ -930,4 +932,7 @@ class AytyIssuePrioritiesController < ApplicationController
     redirect_to ayty_issue_priorities_path(:id => user)
   end
 
+  def validate_ayty_user_access
+    return deny_access unless User.current.ayty_is_user_ayty?
+  end
 end
