@@ -15,7 +15,8 @@
     <% else %>
       <%= image_tag("ayty-management/pending-#{get_color_by_validates_ayty_management(issue.has_pending)}-icon.png",
                     plugin: 'ayty_custom_code',
-                    size: '32x32') %>
+                    size: '32x32',
+                    title: t('.label_has_pending')) %>
     <% end %>
     <% if issue.has_checklist && issue.has_checklist.to_s != '1' %>
       <%= link_to(image_tag(
@@ -32,7 +33,8 @@
     <% else %>
       <%= image_tag("ayty-management/checklist-#{get_color_by_validates_ayty_management(issue.has_checklist)}-icon.png",
                     plugin: 'ayty_custom_code',
-                    size: '32x32') %>
+                    size: '32x32',
+                    title: t('.label_has_checklist')) %>
     <% end %>
   <% end %>
 </div>
