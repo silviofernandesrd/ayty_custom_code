@@ -29,15 +29,15 @@ module Ayty::AytyManagement
   private
 
   def sql_to_validates
-    "#{begin_sql_with} spr_redmine_has_pending(#{id}, '#{usermail}')"
+    "#{begin_sql_with} spr_redmine_has_pending #{id}, '#{usermail}'"
   end
 
   def sql_to_pending
-    "#{begin_sql_with} spr_redmine_list_pending(1, 0, #{id}, '#{usermail}')"
+    "#{begin_sql_with} spr_redmine_list_pending 1, 0, #{id}, '#{usermail}'"
   end
 
   def sql_to_checklist
-    "#{begin_sql_with} spr_redmine_list_pending(0, 1, #{id}, '#{usermail}')"
+    "#{begin_sql_with} spr_redmine_list_pending 0, 1, #{id}, '#{usermail}'"
   end
 
   def usermail
