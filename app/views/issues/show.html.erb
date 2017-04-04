@@ -62,7 +62,7 @@
     issue_fields_rows_due_date_show_only_ayty_user(rows, @issue)
   end
   # override
-  unless @issue.disabled_core_fields.include?('due_date')
+  unless @issue.disabled_core_fields.include?('development_date')
     issue_fields_rows_development_date_show_only_ayty_user(rows, @issue)
   end
   unless @issue.disabled_core_fields.include?('done_ratio')
