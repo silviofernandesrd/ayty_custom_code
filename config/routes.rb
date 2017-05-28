@@ -47,7 +47,6 @@ resources :ayty_issue_priorities do
     get 'ayty_render_watcher'
     get 'ayty_render_play'
   end
-
 end
 
 get '/time_trackers/add_status_transition', :to => 'time_trackers#add_status_transition'

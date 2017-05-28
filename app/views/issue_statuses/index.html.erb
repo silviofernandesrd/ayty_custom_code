@@ -1,5 +1,3 @@
-<!-- ##### AYTYCRM - Silvio Fernandes ##### -->
-
 <div class="contextual">
 <%= link_to l(:label_issue_status_new), new_issue_status_path, :class => 'icon icon-add' %>
 <%= link_to(l(:label_update_issue_done_ratios), update_issue_done_ratio_issue_statuses_path, :class => 'icon icon-multiple', :method => 'post', :data => {:confirm => l(:text_are_you_sure)}) if Issue.use_status_for_done_ratio? %>
@@ -7,7 +5,7 @@
 
 <h2><%=l(:label_issue_status_plural)%></h2>
 
-<table class="list">
+<table class="list issue_statuses">
   <thead><tr>
   <th><%=l(:field_status)%></th>
   <% if Issue.use_status_for_done_ratio? %>
@@ -18,7 +16,6 @@
   <!-- # Tornar usuarios responsaveis como selecionaveis no "Atribuido" Para para qualquer usuario -->
   <th><%=l(:label_ayty_assignable_responsible_short)%></th>
 
-  <th><%=l(:button_sort)%></th>
   <th></th>
   </tr></thead>
   <tbody>
@@ -32,8 +29,8 @@
 
   <td><%= checked_image status.ayty_assignable_responsible? %></td>
 
-  <td class="reorder"><%= reorder_links('issue_status', {:action => 'update', :id => status, :page => params[:page]}, :put) %></td>
   <td class="buttons">
+    <%= reorder_handle(status) %>
     <%= delete_link issue_status_path(status) %>
   </td>
   </tr>
@@ -41,6 +38,8 @@
   </tbody>
 </table>
 
-<p class="pagination"><%= pagination_links_full @issue_status_pages %></p>
-
 <% html_title(l(:label_issue_status_plural)) -%>
+
+<%= javascript_tag do %>
+  $(function() { $("table.issue_statuses tbody").positionedItems(); });
+<% end %>
