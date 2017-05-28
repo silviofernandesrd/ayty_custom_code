@@ -1,5 +1,6 @@
 class AytyIssuePrioritiesController < ApplicationController
 
+  include ActionView::Helpers::TagHelper
   include ActionView::Context
   include ::AytyIssueAlertImagesHelper
   include AytyIssuePrioritiesHelper
