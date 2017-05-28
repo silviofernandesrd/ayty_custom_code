@@ -110,10 +110,10 @@ class AytyIssuePrioritiesController < ApplicationController
         remainder_time_sis_colab = issue.ayty_get_value_by_custom_field_name('Tempo Restante SIS Colab', est_time_sis_colab)
         remainder_time_infra = issue.ayty_get_value_by_custom_field_name('Tempo Restante Infra', est_time_infra)
 
-        remainder_time_sis = remainder_time_sis.empty? ? est_time_sis : remainder_time_sis
-        remainder_time_bd = remainder_time_bd.empty? ? est_time_bd : remainder_time_bd
-        remainder_time_sis_colab = remainder_time_sis_colab.empty? ? est_time_sis_colab : remainder_time_sis_colab
-        remainder_time_infra = remainder_time_infra.empty? ? est_time_infra : remainder_time_infra
+        remainder_time_sis = remainder_time_sis.present? ? remainder_time_sis : est_time_sis
+        remainder_time_bd = remainder_time_bd.present? ? remainder_time_bd : est_time_bd
+        remainder_time_sis_colab = remainder_time_sis_colab.present? ? remainder_time_sis_colab : est_time_sis_colab
+        remainder_time_infra = remainder_time_infra.present? ? remainder_time_infra : est_time_infra
 
         #somas
         sum_est_time_sis += est_time_sis.to_f if est_time_sis.to_f
@@ -537,10 +537,10 @@ class AytyIssuePrioritiesController < ApplicationController
           remainder_time_sis_colab = issue.ayty_get_value_by_custom_field_name('Tempo Restante SIS Colab', est_time_sis_colab)
           remainder_time_infra = issue.ayty_get_value_by_custom_field_name('Tempo Restante Infra', est_time_infra)
 
-          remainder_time_sis = remainder_time_sis.empty? ? est_time_sis : remainder_time_sis
-          remainder_time_bd = remainder_time_bd.empty? ? est_time_bd : remainder_time_bd
-          remainder_time_sis_colab = remainder_time_sis_colab.empty? ? est_time_sis_colab : remainder_time_sis_colab
-          remainder_time_infra = remainder_time_infra.empty? ? est_time_infra : remainder_time_infra
+          remainder_time_sis = remainder_time_sis.present? ? remainder_time_sis : est_time_sis
+          remainder_time_bd = remainder_time_bd.present? ? remainder_time_bd : est_time_bd
+          remainder_time_sis_colab = remainder_time_sis_colab.present? ? remainder_time_sis_colab : est_time_sis_colab
+          remainder_time_infra = remainder_time_infra.present? ? remainder_time_infra : est_time_infra
 
           column = Hash.new()
 
@@ -702,10 +702,10 @@ class AytyIssuePrioritiesController < ApplicationController
           remainder_time_sis_colab = issue.ayty_get_value_by_custom_field_name('Tempo Restante SIS Colab', est_time_sis_colab)
           remainder_time_infra = issue.ayty_get_value_by_custom_field_name('Tempo Restante Infra', est_time_infra)
 
-          remainder_time_sis = remainder_time_sis.empty? ? est_time_sis : remainder_time_sis
-          remainder_time_bd = remainder_time_bd.empty? ? est_time_bd : remainder_time_bd
-          remainder_time_sis_colab = remainder_time_sis_colab.empty? ? est_time_sis_colab : remainder_time_sis_colab
-          remainder_time_infra = remainder_time_infra.empty? ? est_time_infra : remainder_time_infra
+          remainder_time_sis = remainder_time_sis.present? ? remainder_time_sis : est_time_sis
+          remainder_time_bd = remainder_time_bd.present? ? remainder_time_bd : est_time_bd
+          remainder_time_sis_colab = remainder_time_sis_colab.present? ? remainder_time_sis_colab : est_time_sis_colab
+          remainder_time_infra = remainder_time_infra.present? ? remainder_time_infra : est_time_infra
 
           column = Hash.new()
 
