@@ -19,7 +19,7 @@
     -->
     <% if journal_details.length > 0 || (!journal.notes.blank? && ayty_user_can_view_content?(User.current, journal.ayty_access_level)) %>
 
-      <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
+      <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>" style="overflow-y: hidden;">
         <div id="note-<%= journal.indice %>">
             <h4><a href="#note-<%= journal.indice %>" class="journal-link">#<%= journal.indice %></a>
             <%= avatar(journal.user, :size => "24") %>
