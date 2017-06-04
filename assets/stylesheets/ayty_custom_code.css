@@ -243,3 +243,7 @@ tr.time-entry td.ayty_time_entry_type { text-align: left; white-space: normal; }
   background: #86150E;
   color:white;
 }
+
+.no-overflow-y {
+  overflow-y: hidden;
+}

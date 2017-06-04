@@ -91,6 +91,7 @@ module AytyJournalPatch
     end
 
     s << ' ayty-journal-marked' if ayty_marked?
+    s << ' no-overflow-y'
     s
   end
 

@@ -113,7 +113,8 @@
 <%= hidden_field_tag 'copy_attachments', '0' %>
 <p>
   <label for='copy_attachments'><%= l(:label_copy_attachments) %></label>
-  <%= check_box_tag 'copy_attachments', '1', params[:copy_attachments] != '0' %>
+  <!-- removido params[:copy_attachments] != '0' para ficar com default sempre desmarcado -->
+  <%= check_box_tag 'copy_attachments', '1' %>
 </p>
 <% end %>
 

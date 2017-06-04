@@ -21,7 +21,8 @@
     <% if @copy_from && @copy_from.attachments.any? %>
     <p>
       <label for="copy_attachments"><%= l(:label_copy_attachments) %></label>
-      <%= check_box_tag 'copy_attachments', '1', @copy_attachments %>
+      <!-- removido @copy_attachments para ficar com default sempre desmarcado -->
+      <%= check_box_tag 'copy_attachments', '1' %>
     </p>
     <% end %>
     <% if @copy_from && !@copy_from.leaf? %>
