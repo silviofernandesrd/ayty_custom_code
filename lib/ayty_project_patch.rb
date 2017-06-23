@@ -66,8 +66,7 @@ module AytyProjectPatch
         joins(:ayty_access_level, :members => :roles).
         where(:type => types,
               :members => {:project_id => project_id},
-              :roles => {:assignable => true},
-              :ayty_access_levels => {:ayty_access => true}).
+              :roles => {:assignable => true}).
         uniq.
         sorted
   end

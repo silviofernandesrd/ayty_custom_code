@@ -10,7 +10,7 @@ module AytyPrincipalPatch
 
       scope :ayty_filter_access_levels, lambda {|args|
         # filtra somente usuarios ayty
-        if args[:ayty_user]
+        if args[:ayty_user] == true
           joins(:ayty_access_level).
           where("ayty_access_levels.ayty_access = ?", true)
         end

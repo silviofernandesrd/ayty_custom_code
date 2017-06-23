@@ -10,8 +10,8 @@ module Ayty::AytyManagement
     # valida retorno
     validate = result.first if result
     return unless validate
-    @has_pending = validate['has_issue_pending_items']
-    @has_checklist = validate['has_checklist_pending_items']
+    @has_pending = validate['HAS_ISSUE_PENDING_ITEMS']
+    @has_checklist = validate['HAS_CHECKLIST_PENDING_ITEMS']
   end
 
   def show_pending
