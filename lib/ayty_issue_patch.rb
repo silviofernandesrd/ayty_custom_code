@@ -389,7 +389,7 @@ module AytyIssuePatch
     due_date_parsed = due_date.nil? ? '' : due_date
 
     if @current_journal
-      notes_parsed = @current_journal.notes.nil? ? '' : @current_journal.notes.gsub("'", "\\\\'")
+      notes_parsed = @current_journal.notes.nil? ? '' : @current_journal.notes.gsub("'", "\\\'")
     end
 
     user_current_parsed = User.current.nil? ? 'null' : User.current.id
