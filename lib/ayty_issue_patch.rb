@@ -278,7 +278,8 @@ module AytyIssuePatch
   def ayty_call_procedure_after_save
     assigned_to_id_changed = changes['assigned_to_id']
     status_id_changed = changes['status_id']
-    if assigned_to_id_changed || status_id_changed
+    category_id_changed = changes['category_id']
+    if assigned_to_id_changed || status_id_changed || category_id_changed
       assigned_to_id_new_parsed = 'null'
       assigned_to_id_old_parsed = 'null'
       assigned_to_ayty_role_id_new_parsed = 'null'
