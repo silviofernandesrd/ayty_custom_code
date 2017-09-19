@@ -84,7 +84,9 @@ module AytyIssuePatch
       }
 
       before_save :ayty_priority
-      after_update :ayty_call_procedure_after_save
+      after_create :ayty_call_procedure_after_save_on_create, on: :create
+      after_update :ayty_call_procedure_after_save_on_update, on: :update
+     
       attr_accessor :ayty_before_time_entry
       alias_method_chain :init_journal, :ayty_before_changes
       alias_method_chain :notified_users, :ayty_filter_notifieds
@@ -275,87 +277,92 @@ module AytyIssuePatch
     end
 
   end
-  def ayty_call_procedure_after_save
+
+  def ayty_call_procedure_after_save_on_update
     assigned_to_id_changed = changes['assigned_to_id']
     status_id_changed = changes['status_id']
     category_id_changed = changes['category_id']
     if assigned_to_id_changed || status_id_changed || category_id_changed
-      assigned_to_id_new_parsed = 'null'
-      assigned_to_id_old_parsed = 'null'
-      assigned_to_ayty_role_id_new_parsed = 'null'
-      assigned_to_ayty_role_id_old_parsed = 'null'
-      status_id_new_parsed = 'null'
-      status_id_old_parsed = 'null'
-      if assigned_to_id_changed
-        if assigned_to_id_changed.any?
-          assigned_to_id_new_parsed = assigned_to_id_changed.last
-          assigned_to_ayty_role_id_new_parsed = 'null'
-          if assigned_to
-            if assigned_to.ayty_role_id
-              assigned_to_ayty_role_id_new_parsed = assigned_to.ayty_role_id
-            end
-          end
-          if assigned_to_id_changed.first
-            assigned_to_id_old_parsed = assigned_to_id_changed.first
-          end
-          if assigned_to_id_old_parsed && assigned_to_id_old_parsed != 'null'
-            assigned_to_ayty_role_id_old_parsed = 'null'
-            user_old = User.find(assigned_to_id_old_parsed)
-            if user_old && user_old.ayty_role_id
-              assigned_to_ayty_role_id_old_parsed = user_old.ayty_role_id
-            end
-          end
-        end
-      end
-      if status_id_changed
-        if status_id_changed.any?
-          status_id_new_parsed = status_id_changed.last
-          if status_id_changed.first
-            status_id_old_parsed = status_id_changed.first
-          end
-        end
-      end
-      issue_id_parsed = id.nil? ? 'null' : id
-      assigned_to_inf_id_parsed = assigned_to_inf_id.nil? ? 'null' : assigned_to_inf_id
-      user_current_parsed = User.current.nil? ? 'null' : User.current.id
-      user_current_ayty_role_id_parsed = User.current.ayty_role_id.nil? ? 'null' : User.current.ayty_role_id
-      cf_status_post_delivery = ayty_get_value_by_custom_field_name('Status pós-Entrega', '')
-      sql = case ActiveRecord::Base.connection_config[:adapter]
-            when 'postgresql'
-              "
-              select spr_ayty_validate_update_issue_after(
-                issue_id := #{issue_id_parsed},
-                assigned_to_id_old := #{assigned_to_id_old_parsed},
-                assigned_to_ayty_role_id_old := #{assigned_to_ayty_role_id_old_parsed},
-                assigned_to_id := #{assigned_to_id_new_parsed},
-                assigned_to_ayty_role_id := #{assigned_to_ayty_role_id_new_parsed},
-                status_id_old := #{status_id_old_parsed},
-                status_id := #{status_id_new_parsed},
-                assigned_to_inf_id := #{assigned_to_inf_id_parsed},
-                cf_status_post_delivery := '#{cf_status_post_delivery}',
-                current_user_id := #{user_current_parsed},
-                current_user_ayty_role_id := #{user_current_ayty_role_id_parsed}
-              )
-              "
-            when 'sqlserver'
-              "
-              exec spr_ayty_validate_update_issue_after
-                @issue_id = #{issue_id_parsed},
-                @assigned_to_id_old = #{assigned_to_id_old_parsed},
-                @assigned_to_ayty_role_id_old = #{assigned_to_ayty_role_id_old_parsed},
-                @assigned_to_id = #{assigned_to_id_new_parsed},
-                @assigned_to_ayty_role_id = #{assigned_to_ayty_role_id_new_parsed},
-                @status_id_old = #{status_id_old_parsed},
-                @status_id = #{status_id_new_parsed},
-                @assigned_to_inf_id = #{assigned_to_inf_id_parsed},
-                @cf_status_post_delivery = '#{cf_status_post_delivery}',
-                @current_user_id = #{user_current_parsed},
-                @current_user_ayty_role_id = #{user_current_ayty_role_id_parsed}
-              "
-            end
-      # executa procedure
-      ActiveRecord::Base.connection.exec_query(sql)
+      ayty_call_procedure_after_save_on_create(assigned_to_id_changed, status_id_changed)
     end
+  end
+
+  def ayty_call_procedure_after_save_on_create(assigned_to_id_changed = [], status_id_changed = [])
+    assigned_to_id_new_parsed = 'null'
+    assigned_to_id_old_parsed = 'null'
+    assigned_to_ayty_role_id_new_parsed = 'null'
+    assigned_to_ayty_role_id_old_parsed = 'null'
+    status_id_new_parsed = 'null'
+    status_id_old_parsed = 'null'
+    if assigned_to_id_changed
+      if assigned_to_id_changed.any?
+        assigned_to_id_new_parsed = assigned_to_id_changed.last
+        assigned_to_ayty_role_id_new_parsed = 'null'
+        if assigned_to
+          if assigned_to.ayty_role_id
+            assigned_to_ayty_role_id_new_parsed = assigned_to.ayty_role_id
+          end
+        end
+        if assigned_to_id_changed.first
+          assigned_to_id_old_parsed = assigned_to_id_changed.first
+        end
+        if assigned_to_id_old_parsed && assigned_to_id_old_parsed != 'null'
+          assigned_to_ayty_role_id_old_parsed = 'null'
+          user_old = User.find(assigned_to_id_old_parsed)
+          if user_old && user_old.ayty_role_id
+            assigned_to_ayty_role_id_old_parsed = user_old.ayty_role_id
+          end
+        end
+      end
+    end
+    if status_id_changed
+      if status_id_changed.any?
+        status_id_new_parsed = status_id_changed.last
+        if status_id_changed.first
+          status_id_old_parsed = status_id_changed.first
+        end
+      end
+    end
+    issue_id_parsed = id.nil? ? 'null' : id
+    assigned_to_inf_id_parsed = assigned_to_inf_id.nil? ? 'null' : assigned_to_inf_id
+    user_current_parsed = User.current.nil? ? 'null' : User.current.id
+    user_current_ayty_role_id_parsed = User.current.ayty_role_id.nil? ? 'null' : User.current.ayty_role_id
+    cf_status_post_delivery = ayty_get_value_by_custom_field_name('Status pós-Entrega', '')
+    sql = case ActiveRecord::Base.connection_config[:adapter]
+          when 'postgresql'
+            "
+            select spr_ayty_validate_update_issue_after(
+              issue_id := #{issue_id_parsed},
+              assigned_to_id_old := #{assigned_to_id_old_parsed},
+              assigned_to_ayty_role_id_old := #{assigned_to_ayty_role_id_old_parsed},
+              assigned_to_id := #{assigned_to_id_new_parsed},
+              assigned_to_ayty_role_id := #{assigned_to_ayty_role_id_new_parsed},
+              status_id_old := #{status_id_old_parsed},
+              status_id := #{status_id_new_parsed},
+              assigned_to_inf_id := #{assigned_to_inf_id_parsed},
+              cf_status_post_delivery := '#{cf_status_post_delivery}',
+              current_user_id := #{user_current_parsed},
+              current_user_ayty_role_id := #{user_current_ayty_role_id_parsed}
+            )
+            "
+          when 'sqlserver'
+            "
+            exec spr_ayty_validate_update_issue_after
+              @issue_id = #{issue_id_parsed},
+              @assigned_to_id_old = #{assigned_to_id_old_parsed},
+              @assigned_to_ayty_role_id_old = #{assigned_to_ayty_role_id_old_parsed},
+              @assigned_to_id = #{assigned_to_id_new_parsed},
+              @assigned_to_ayty_role_id = #{assigned_to_ayty_role_id_new_parsed},
+              @status_id_old = #{status_id_old_parsed},
+              @status_id = #{status_id_new_parsed},
+              @assigned_to_inf_id = #{assigned_to_inf_id_parsed},
+              @cf_status_post_delivery = '#{cf_status_post_delivery}',
+              @current_user_id = #{user_current_parsed},
+              @current_user_ayty_role_id = #{user_current_ayty_role_id_parsed}
+            "
+          end
+    # executa procedure
+    ActiveRecord::Base.connection.exec_query(sql)
   end
 
   def ayty_call_procedure_before_save
